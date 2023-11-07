@@ -1,0 +1,5 @@
+<?php
+
+namespace MWF\Plugin\DL;
+
+class Container {}

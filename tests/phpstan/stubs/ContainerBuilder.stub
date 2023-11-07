@@ -1,0 +1,11 @@
+<?php
+
+namespace MWF\Plugin\DI;
+
+class ContainerBuilder
+{
+    /**
+     * @return Container
+     */
+    public function build(); 
+}
