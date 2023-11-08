@@ -27,7 +27,7 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"Mwf\\Wp\\Lib" : "inc"
+			"Mwf\\Wp\\Lib\\" : "inc"
 		}
 	},
 	"require": {
