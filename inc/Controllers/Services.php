@@ -4,19 +4,19 @@
  *
  * PHP Version 8.0.28
  *
- * @package MWF\Plugin
+ * @package Mwf\Wp\Lib
  * @author  Bob Moore <bob.moore@midwestfamilymadison.com>
  * @license GPL-2.0+ <http://www.gnu.org/licenses/gpl-2.0.txt>
  * @link    https://github.com/MDMDevOps/mwf-plugin-framework
  * @since   1.0.0
  */
 
-namespace MWF\Plugin\Controllers;
+namespace Mwf\Wp\Lib\Controllers;
 
-use MWF\Plugin\DI\ContainerBuilder,
-	MWF\Plugin\Services as Service,
-	MWF\Plugin\Interfaces,
-	MWF\Plugin\Abstracts;
+use Mwf\Wp\Lib\DI\ContainerBuilder,
+	Mwf\Wp\Lib\Services as Service,
+	Mwf\Wp\Lib\Interfaces,
+	Mwf\Wp\Lib\Abstracts;
 
 /**
  * Controls the registration and execution of services

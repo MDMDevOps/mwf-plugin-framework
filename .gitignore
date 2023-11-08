@@ -48,6 +48,7 @@ config.codekit
 ####################
 node_modules
 lib
+vendor
 *-lock.json
 *.lock
 *hot-update*

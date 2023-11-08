@@ -1,13 +1,13 @@
 {
-    "name": "mwf/plugin-framework",
-    "description": "Plugin framework for WordPress Plugins",
+    "name": "mwf/wplib",
+    "description": "WP Plugin/Theme Library",
     "type": "library",
     "minimum-stability": "dev",
     "license": "GPL-2.0+ <http://www.gnu.org/licenses/gpl-2.0.txt>",
     "authors": [
         {
             "name": "Bob Moore",
-            "email": "bob@bobmoore.dev"
+            "email": "bob.moore@midwestfamilymadison.com"
         }
     ],
 	"minimum-stability": "dev",
@@ -27,7 +27,7 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"MWF\\Plugin\\" : "inc"
+			"Mwf\\Wp\\Lib" : "inc"
 		}
 	},
 	"require": {
@@ -42,5 +42,15 @@
 		"phpstan/phpstan": "^1.10",
 		"szepeviktor/phpstan-wordpress": "^1.3",
 		"phpcsstandards/phpcsutils": "^1.0"
-	}
+	},
+	"scripts": {
+		"phpstan": "vendor/bin/phpstan analyze -c tests/phpstan/phpstan.neon --memory-limit=2048M",
+		"phpsniff" : "vendor/bin/phpcs inc -v --standard='tests/phpcs.xml'",
+		"phpsniff:fix" : "vendor/bin/phpcbf inc -v --standard='tests/phpcs.xml'",
+		"phpsniff:default" : "vendor/bin/phpcs inc -v",
+		"phpsniff:PSR12" : "vendor/bin/phpcs inc -v --standard='PSR12'",
+		"phpsniff:PSR2" : "vendor/bin/phpcs inc -v --standard='PSR2'",
+		"phpsniff:WP" : "vendor/bin/phpcs inc/Abstracts -v --standard='WordPress'",
+		"strauss" : "vendor/bin/strauss"
+    }
 }

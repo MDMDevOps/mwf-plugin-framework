@@ -4,21 +4,21 @@
  *
  * PHP Version 8.0.28
  *
- * @package MWF\Plugin
+ * @package Mwf\Wp\Lib
  * @author  Bob Moore <bob.moore@midwestfamilymadison.com>
  * @license GPL-2.0+ <http://www.gnu.org/licenses/gpl-2.0.txt>
  * @link    https://github.com/MDMDevOps/mwf-plugin-framework
  * @since   1.0.0
  */
 
-namespace MWF\Plugin\Interfaces\Uses;
+namespace Mwf\Wp\Lib\Interfaces\Uses;
 
-use MWF\Plugin\Interfaces\Dispatchers;
+use Mwf\Wp\Lib\Interfaces\Dispatchers;
 
 /**
  * Uses\Styles interface
  *
- * Used to type hint against MWF\Plugin\Interfaces\Uses\Styles.
+ * Used to type hint against Mwf\Wp\Lib\Interfaces\Uses\Styles.
  *
  * @subpackage Interfaces
  */

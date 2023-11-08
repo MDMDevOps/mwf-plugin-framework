@@ -2,7 +2,7 @@
 /**
  * Plugin bootstrap file
  *
- * @package MWF\Plugin
+ * @package Mwf\Wp\Lib
  *
  * @wordpress-plugin
  * Plugin Name: MWF Plugin Framework
@@ -18,15 +18,15 @@
  * Requires PHP: 8.0.28
  * License:     GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain: mwf_plugin_framework
+ * Text Domain: mwf_wp_lib
  */
 
-namespace MWF\Plugin;
+namespace Mwf\Wp\Lib;
 
 defined( 'ABSPATH' ) || exit;
 
-require_once trailingslashit( plugin_dir_path( __FILE__ ) ) . 'lib/autoload.php';
+require_once trailingslashit( plugin_dir_path( __FILE__ ) ) . 'vendor/autoload.php';
 
-$mwf_plugin = new App( 'mwfpf', __FILE__ );
+$mwf_wp_lib = new App( 'mwf_wp_lib', __FILE__ );
 
-$mwf_plugin->load();
+$mwf_wp_lib->load();
