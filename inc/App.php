@@ -16,6 +16,7 @@ namespace Mwf\Wp\Lib;
 use Mwf\Wp\Lib\DI\Container,
 	Mwf\Wp\Lib\DI\ContainerBuilder;
 
+use DI\Definition\Source\DefinitionSource;
 /**
  * App Class
  *
@@ -140,9 +141,9 @@ class App extends Abstracts\Loadable
 	/**
 	 * Get service definitons to add to service container
 	 *
-	 * @return string|array<string, mixed>|\DI\Definition\Source\DefinitionSource
+	 * @return string|array<string, mixed>|DefinitionSource
 	 */
-	protected function getServiceDefinitions(): string|array|\DI\Definition\Source\DefinitionSource
+	protected function getServiceDefinitions(): string|array|DefinitionSource
 	{
 		$definitions = [
 			'app.package'                  => $this->package,
