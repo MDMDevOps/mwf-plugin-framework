@@ -4,17 +4,17 @@
  *
  * PHP Version 8.0.28
  *
- * @package Mwf\Wp\Lib
+ * @package Mwf\Wp
  * @author  Bob Moore <bob.moore@midwestfamilymadison.com>
  * @license GPL-2.0+ <http://www.gnu.org/licenses/gpl-2.0.txt>
  * @link    https://github.com/MDMDevOps/mwf-plugin-framework
  * @since   1.0.0
  */
 
-namespace Mwf\Wp\Lib\Services;
+namespace Mwf\Wp\Services;
 
-use Mwf\Wp\Lib\Abstracts,
-	Mwf\Wp\Lib\Interfaces;
+use Mwf\Wp\Abstracts,
+	Mwf\Wp\Interfaces;
 
 /**
  * Service class for router actions

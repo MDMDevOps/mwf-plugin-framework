@@ -2,7 +2,7 @@
 /**
  * Plugin bootstrap file
  *
- * @package Mwf\Wp\Lib
+ * @package Mwf\Wp
  *
  * @wordpress-plugin
  * Plugin Name: MWF Plugin Framework
@@ -21,7 +21,7 @@
  * Text Domain: mwf_wp_lib
  */
 
-namespace Mwf\Wp\Lib;
+namespace Mwf\Wp;
 
 defined( 'ABSPATH' ) || exit;
 
