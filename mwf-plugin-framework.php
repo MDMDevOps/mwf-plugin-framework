@@ -2,7 +2,7 @@
 /**
  * Plugin bootstrap file
  *
- * @package Mwf\Wp
+ * @package App
  *
  * @wordpress-plugin
  * Plugin Name: MWF Plugin Framework
@@ -21,12 +21,12 @@
  * Text Domain: mwf_wp_lib
  */
 
-namespace Mwf\Wp;
+namespace App;
 
 defined( 'ABSPATH' ) || exit;
 
 require_once trailingslashit( plugin_dir_path( __FILE__ ) ) . 'vendor/autoload.php';
 
-$mwf_wp_lib = new App( 'mwf_wp_lib', __FILE__ );
+$mwf_wp_lib = new Main( 'mwf_wp_lib', __FILE__ );
 
 $mwf_wp_lib->load();

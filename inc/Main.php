@@ -4,27 +4,27 @@
  *
  * PHP Version 8.0.28
  *
- * @package Mwf\Wp
+ * @package App
  * @author  Bob Moore <bob.moore@midwestfamilymadison.com>
  * @license GPL-2.0+ <http://www.gnu.org/licenses/gpl-2.0.txt>
  * @link    https://github.com/MDMDevOps/mwf-plugin-framework
  * @since   1.0.0
  */
 
-namespace Mwf\Wp;
+namespace App;
 
-use Mwf\Wp\DI\Container,
-	Mwf\Wp\DI\ContainerBuilder;
+use App\DI\Container,
+	App\DI\ContainerBuilder;
 
 use DI\Definition\Source\DefinitionSource;
 /**
- * App Class
+ * Main APp Class
  *
  * Used as the base for a plugin/theme
  *
  * @subpackage Traits
  */
-class App extends Abstracts\Loadable
+class Main extends Abstracts\Loadable
 {
 	use Traits\UrlHandler;
 	use Traits\DirectoryHandler;

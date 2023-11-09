@@ -4,19 +4,19 @@
  *
  * PHP Version 8.0.28
  *
- * @package Mwf\Wp
+ * @package App
  * @author  Bob Moore <bob.moore@midwestfamilymadison.com>
  * @license GPL-2.0+ <http://www.gnu.org/licenses/gpl-2.0.txt>
  * @link    https://github.com/MDMDevOps/mwf-plugin-framework
  * @since   1.0.0
  */
 
-namespace Mwf\Wp\Controllers;
+namespace App\Controllers;
 
-use Mwf\Wp\DI\ContainerBuilder,
-	Mwf\Wp\Services as Service,
-	Mwf\Wp\Interfaces,
-	Mwf\Wp\Abstracts;
+use App\DI\ContainerBuilder,
+	App\Services as Service,
+	App\Interfaces,
+	App\Abstracts;
 
 /**
  * Controls the registration and execution of services
