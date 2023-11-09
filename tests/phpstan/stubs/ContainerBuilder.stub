@@ -1,6 +1,6 @@
 <?php
 
-namespace Mwf\Wp\DI;
+namespace App\DI;
 
 class ContainerBuilder
 {
