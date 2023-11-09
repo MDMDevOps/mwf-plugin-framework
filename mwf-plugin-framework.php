@@ -27,6 +27,6 @@ defined( 'ABSPATH' ) || exit;
 
 require_once trailingslashit( plugin_dir_path( __FILE__ ) ) . 'vendor/autoload.php';
 
-$mwf_wp_lib = new App( 'mwf_wp_lib', __FILE__ );
+$mwf_wp_lib = new Main( 'mwf_wp_lib', __FILE__ );
 
 $mwf_wp_lib->load();

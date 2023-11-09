@@ -18,13 +18,13 @@ use App\DI\Container,
 
 use DI\Definition\Source\DefinitionSource;
 /**
- * App Class
+ * Main APp Class
  *
  * Used as the base for a plugin/theme
  *
  * @subpackage Traits
  */
-class App extends Abstracts\Loadable
+class Main extends Abstracts\Loadable
 {
 	use Traits\UrlHandler;
 	use Traits\DirectoryHandler;
