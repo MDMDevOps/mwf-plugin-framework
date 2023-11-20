@@ -39,12 +39,12 @@ class Admin extends Abstracts\Route
 	public function enqueueAssets(): void
 	{
 		$this->script_handler->enqueue(
-			'frontend',
-			'frontend/bundle.js'
+			'admin',
+			'admin/bundle.js'
 		);
 		$this->style_handler->enqueue(
-			'frontend',
-			'frontend/bundle.css'
+			'admin',
+			'admin/bundle.css'
 		);
 	}
 }

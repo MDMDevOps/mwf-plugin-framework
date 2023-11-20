@@ -28,7 +28,10 @@
 	"autoload": {
 		"psr-4": {
 			"Mwf\\Lib\\" : "inc"
-		}
+		},
+		"files" : [
+			"init.php"
+		]
 	},
 	"require-dev": {
 		"squizlabs/php_codesniffer": "^3.7",
