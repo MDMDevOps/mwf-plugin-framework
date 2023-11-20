@@ -11,9 +11,9 @@
  * @since   1.0.0
  */
 
-namespace Lib\Wp\Interfaces\Services;
+namespace Mwf\Lib\Interfaces\Services;
 
-use Twig\Environment;
+use Mwf\Lib\Deps\Twig\Environment;
 
 /**
  * Service class for router actions

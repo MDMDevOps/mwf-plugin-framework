@@ -11,12 +11,12 @@
  * @since   1.0.0
  */
 
-namespace Lib\Wp\Controllers;
+namespace Mwf\Lib\Controllers;
 
-use Lib\Wp\DI\ContainerBuilder,
-	Lib\Wp\Abstracts,
-	Lib\Wp\Interfaces,
-	Lib\Wp\Routes as Route;
+use Mwf\Lib\DI\ContainerBuilder,
+	Mwf\Lib\Abstracts,
+	Mwf\Lib\Interfaces,
+	Mwf\Lib\Routes as Route;
 
 /**
  * Controls the registration and execution of Routes

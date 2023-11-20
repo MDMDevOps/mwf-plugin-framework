@@ -11,12 +11,12 @@
  * @since   1.0.0
  */
 
-namespace Lib\Wp\Interfaces\Services;
+namespace Mwf\Lib\Interfaces\Services;
 
 /**
  * Services\Router interface
  *
- * Used to type hint against Lib\Wp\Interfaces\Services\Router.
+ * Used to type hint against Mwf\Lib\Interfaces\Services\Router.
  *
  * @subpackage Interfaces
  */

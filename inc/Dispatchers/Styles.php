@@ -11,11 +11,11 @@
  * @since   1.0.0
  */
 
-namespace Lib\Wp\Dispatchers;
+namespace Mwf\Lib\Dispatchers;
 
-use Lib\Wp\Abstracts,
-	Lib\Wp\Interfaces,
-	Lib\Wp\Traits;
+use Mwf\Lib\Abstracts,
+	Mwf\Lib\Interfaces,
+	Mwf\Lib\Traits;
 
 /**
  * Style dispatcher service

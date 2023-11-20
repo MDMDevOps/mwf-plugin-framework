@@ -11,7 +11,7 @@
  * @since   1.0.0
  */
 
-namespace Lib\Wp\Interfaces;
+namespace Mwf\Lib\Interfaces;
 
 /**
  * Define controller requirements

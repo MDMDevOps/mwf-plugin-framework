@@ -11,19 +11,19 @@
  * @since   1.0.0
  */
 
-namespace Lib\Wp\Services;
+namespace Mwf\Lib\Services;
 
-use Lib\Wp\Abstracts,
-	Lib\Wp\Interfaces,
-	Lib\Wp\Traits,
-	Timber\Timber,
-	Timber\Loader,
-	Twig\TwigFunction,
-	Twig\TwigFilter,
-	Twig\Environment,
-	Twig\Error\SyntaxError;
+use Mwf\Lib\Abstracts,
+	Mwf\Lib\Interfaces,
+	Mwf\Lib\Traits,
+	Mwf\Lib\Deps\Timber\Timber,
+	Mwf\Lib\Deps\Timber\Loader,
+	Mwf\Lib\Deps\Twig\TwigFunction,
+	Mwf\Lib\Deps\Twig\TwigFilter,
+	Mwf\Lib\Deps\Twig\Environment,
+	Mwf\Lib\Deps\Twig\Error\SyntaxError;
 
-use DI\Attribute\Inject;
+use Mwf\Lib\Deps\DI\Attribute\Inject;
 
 use LogicException;
 

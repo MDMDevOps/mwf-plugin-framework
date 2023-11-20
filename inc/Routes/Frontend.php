@@ -11,9 +11,9 @@
  * @since   1.0.0
  */
 
-namespace Lib\Wp\Routes;
+namespace Mwf\Lib\Routes;
 
-use Lib\Wp\Abstracts;
+use Mwf\Lib\Abstracts;
 
 /**
  * Frontend router class

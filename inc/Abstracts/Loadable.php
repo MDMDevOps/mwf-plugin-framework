@@ -11,9 +11,9 @@
  * @since   1.0.0
  */
 
-namespace Lib\Wp\Abstracts;
+namespace Mwf\Lib\Abstracts;
 
-use Lib\Wp\Interfaces;
+use Mwf\Lib\Interfaces;
 
 use DI\Attribute\Inject;
 

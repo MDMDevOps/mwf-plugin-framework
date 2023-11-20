@@ -11,12 +11,12 @@
  * @since   1.0.0
  */
 
-namespace Lib\Wp\Interfaces;
+namespace Mwf\Lib\Interfaces;
 
 /**
  * Provider interface requirements
  *
- * Used to type hint against Lib\Wp\Interfaces\Provider.
+ * Used to type hint against Mwf\Lib\Interfaces\Provider.
  *
  * @subpackage Interfaces
  */

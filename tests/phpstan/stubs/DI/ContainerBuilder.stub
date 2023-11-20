@@ -2,7 +2,7 @@
 
 namespace DI;
 
-use \Lib\Wp\DI\Container;
+use \Mwf\Lib\DI\Container;
 
 class ContainerBuilder
 {

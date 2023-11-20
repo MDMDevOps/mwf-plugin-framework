@@ -11,12 +11,12 @@
  * @since   1.0.0
  */
 
-namespace Lib\Wp\Interfaces\Handlers;
+namespace Mwf\Lib\Interfaces\Handlers;
 
 /**
  * Handlers\Directory interface
  *
- * Used to type hint against Lib\Wp\Interfaces\Handlers\Directory.
+ * Used to type hint against Mwf\Lib\Interfaces\Handlers\Directory.
  *
  * @subpackage Interfaces
  */

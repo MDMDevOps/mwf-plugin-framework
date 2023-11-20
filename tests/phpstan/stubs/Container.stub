@@ -1,5 +1,5 @@
 <?php
 
-namespace Lib\Wp\DL;
+namespace Mwf\Lib\DL;
 
 class Container {}

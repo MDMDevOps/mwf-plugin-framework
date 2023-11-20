@@ -21,11 +21,12 @@
  * Text Domain: mwf_wp_lib
  */
 
-namespace Lib\Wp;
+namespace Mwf\Lib;
 
 defined( 'ABSPATH' ) || exit;
 
 require_once trailingslashit( plugin_dir_path( __FILE__ ) ) . 'vendor/autoload.php';
+require_once trailingslashit( plugin_dir_path( __FILE__ ) ) . 'deps/autoload.php';
 
 $mwf_wp_lib = new Main( 'mwf_wp_lib', __FILE__ );
 

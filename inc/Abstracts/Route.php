@@ -11,10 +11,10 @@
  * @since   1.0.0
  */
 
-namespace Lib\Wp\Abstracts;
+namespace Mwf\Lib\Abstracts;
 
-use Lib\Wp\Interfaces,
-	Lib\Wp\Traits;
+use Mwf\Lib\Interfaces,
+	Mwf\Lib\Traits;
 
 /**
  * Route class
