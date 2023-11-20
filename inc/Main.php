@@ -137,9 +137,9 @@ class Main extends Abstracts\Loadable
 	/**
 	 * Get service definitons to add to service container
 	 *
-	 * @return string|array<string, mixed>|DefinitionSource
+	 * @return array<string, mixed>
 	 */
-	protected function getServiceDefinitions(): string|array|DefinitionSource
+	protected function getServiceDefinitions(): array
 	{
 		$definitions = [
 			'app.package'                  => $this->package,
