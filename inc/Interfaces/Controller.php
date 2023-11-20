@@ -11,7 +11,7 @@
  * @since   1.0.0
  */
 
-namespace App\Interfaces;
+namespace Mwf\Wp\App\Interfaces;
 
 /**
  * Define controller requirements

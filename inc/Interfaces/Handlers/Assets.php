@@ -11,12 +11,12 @@
  * @since   1.0.0
  */
 
-namespace App\Interfaces\Handlers;
+namespace Mwf\Wp\App\Interfaces\Handlers;
 
 /**
  * Handlers\Assets interface
  *
- * Used to type hint against App\Interfaces\Handlers\Assets.
+ * Used to type hint against Mwf\Wp\App\Interfaces\Handlers\Assets.
  *
  * @subpackage Interfaces
  */

@@ -11,7 +11,7 @@
  * @since   1.0.0
  */
 
-namespace App\Traits;
+namespace Mwf\Wp\App\Traits;
 
 use DI\Attribute\Inject;
 

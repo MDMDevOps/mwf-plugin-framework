@@ -13,10 +13,10 @@
  * @since   1.0.0
  */
 
-namespace App\Abstracts;
+namespace Mwf\Wp\App\Abstracts;
 
-use App\Interfaces,
-	App\Traits;
+use Mwf\Wp\App\Interfaces,
+	Mwf\Wp\App\Traits;
 
 /**
  * Abstract provider class

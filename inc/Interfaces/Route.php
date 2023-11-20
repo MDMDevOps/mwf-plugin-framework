@@ -11,12 +11,12 @@
  * @since   1.0.0
  */
 
-namespace App\Interfaces;
+namespace Mwf\Wp\App\Interfaces;
 
 /**
  * Route interface requirements
  *
- * Used to type hint against App\Interfaces\Route.
+ * Used to type hint against Mwf\Wp\App\Interfaces\Route.
  *
  * @subpackage Interfaces
  */

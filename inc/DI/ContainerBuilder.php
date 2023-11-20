@@ -11,13 +11,13 @@
  * @since   1.0.0
  */
 
-namespace App\DI;
+namespace Mwf\Wp\App\DI;
 
 use DI\Definition\Source\DefinitionSource,
 	DI\Definition\Reference,
 	DI\Definition\Helper;
 
-use App\Interfaces;
+use Mwf\Wp\App\Interfaces;
 
 /**
  * Builder for Service Containers

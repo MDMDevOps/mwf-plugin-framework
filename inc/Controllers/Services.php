@@ -11,12 +11,12 @@
  * @since   1.0.0
  */
 
-namespace App\Controllers;
+namespace Mwf\Wp\App\Controllers;
 
-use App\DI\ContainerBuilder,
-	App\Services as Service,
-	App\Interfaces,
-	App\Abstracts;
+use Mwf\Wp\App\DI\ContainerBuilder,
+	Mwf\Wp\App\Services as Service,
+	Mwf\Wp\App\Interfaces,
+	Mwf\Wp\App\Abstracts;
 
 /**
  * Controls the registration and execution of services

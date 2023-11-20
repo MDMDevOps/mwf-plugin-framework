@@ -11,12 +11,12 @@
  * @since   1.0.0
  */
 
-namespace App\Interfaces\Handlers;
+namespace Mwf\Wp\App\Interfaces\Handlers;
 
 /**
  * Handlers\Url interface
  *
- * Used to type hint against App\Interfaces\Handlers\Url.
+ * Used to type hint against Mwf\Wp\App\Interfaces\Handlers\Url.
  *
  * @subpackage Interfaces
  */

@@ -21,7 +21,7 @@
  * Text Domain: mwf_wp_lib
  */
 
-namespace App;
+namespace Mwf\Wp\App;
 
 defined( 'ABSPATH' ) || exit;
 

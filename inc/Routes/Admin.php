@@ -11,9 +11,9 @@
  * @since   1.0.0
  */
 
-namespace App\Routes;
+namespace Mwf\Wp\App\Routes;
 
-use App\Abstracts;
+use Mwf\Wp\App\Abstracts;
 
 /**
  * Admin router class

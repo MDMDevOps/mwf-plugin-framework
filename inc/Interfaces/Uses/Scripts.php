@@ -11,14 +11,14 @@
  * @since   1.0.0
  */
 
-namespace App\Interfaces\Uses;
+namespace Mwf\Wp\App\Interfaces\Uses;
 
-use App\Interfaces\Dispatchers;
+use Mwf\Wp\App\Interfaces\Dispatchers;
 
 /**
  * Uses\Scripts interface
  *
- * Used to type hint against App\Interfaces\Uses\Scripts.
+ * Used to type hint against Mwf\Wp\App\Interfaces\Uses\Scripts.
  *
  * @subpackage Interfaces
  */
