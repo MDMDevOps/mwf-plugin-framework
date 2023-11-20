@@ -11,12 +11,12 @@
  * @since   1.0.0
  */
 
-namespace Mwf\Wp\Interfaces\Dispatchers;
+namespace Lib\Wp\Interfaces\Dispatchers;
 
 /**
  * Dispatcher\Style interface
  *
- * Used to type hint against Mwf\Wp\Interfaces\Dispatchers\Styles.
+ * Used to type hint against Lib\Wp\Interfaces\Dispatchers\Styles.
  *
  * @subpackage Interfaces
  */

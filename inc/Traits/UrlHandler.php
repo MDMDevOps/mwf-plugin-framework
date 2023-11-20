@@ -11,7 +11,7 @@
  * @since   1.0.0
  */
 
-namespace Mwf\Wp\Traits;
+namespace Lib\Wp\Traits;
 
 use DI\Attribute\Inject;
 

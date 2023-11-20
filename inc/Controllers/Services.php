@@ -11,12 +11,12 @@
  * @since   1.0.0
  */
 
-namespace Mwf\Wp\Controllers;
+namespace Lib\Wp\Controllers;
 
-use Mwf\Wp\DI\ContainerBuilder,
-	Mwf\Wp\Services as Service,
-	Mwf\Wp\Interfaces,
-	Mwf\Wp\Abstracts;
+use Lib\Wp\DI\ContainerBuilder,
+	Lib\Wp\Services as Service,
+	Lib\Wp\Interfaces,
+	Lib\Wp\Abstracts;
 
 /**
  * Controls the registration and execution of services

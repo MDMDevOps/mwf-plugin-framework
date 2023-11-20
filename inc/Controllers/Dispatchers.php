@@ -11,12 +11,12 @@
  * @since   1.0.0
  */
 
-namespace Mwf\Wp\Controllers;
+namespace Lib\Wp\Controllers;
 
-use Mwf\Wp\DI\ContainerBuilder,
-	Mwf\Wp\Dispatchers as Dispatcher,
-	Mwf\Wp\Interfaces,
-	Mwf\Wp\Abstracts;
+use Lib\Wp\DI\ContainerBuilder,
+	Lib\Wp\Dispatchers as Dispatcher,
+	Lib\Wp\Interfaces,
+	Lib\Wp\Abstracts;
 
 /**
  * Controls the registration and execution of Dispatchers

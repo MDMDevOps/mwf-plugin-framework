@@ -11,9 +11,9 @@
  * @since   1.0.0
  */
 
-namespace Mwf\Wp\Routes;
+namespace Lib\Wp\Routes;
 
-use Mwf\Wp\Abstracts;
+use Lib\Wp\Abstracts;
 
 /**
  * Login router class

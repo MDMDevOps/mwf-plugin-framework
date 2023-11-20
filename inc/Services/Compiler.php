@@ -11,11 +11,11 @@
  * @since   1.0.0
  */
 
-namespace Mwf\Wp\Services;
+namespace Lib\Wp\Services;
 
-use Mwf\Wp\Abstracts,
-	Mwf\Wp\Interfaces,
-	Mwf\Wp\Traits,
+use Lib\Wp\Abstracts,
+	Lib\Wp\Interfaces,
+	Lib\Wp\Traits,
 	Timber\Timber,
 	Timber\Loader,
 	Twig\TwigFunction,

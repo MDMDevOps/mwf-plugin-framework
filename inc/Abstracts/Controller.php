@@ -14,9 +14,9 @@
  * @since   1.0.0
  */
 
-namespace Mwf\Wp\Abstracts;
+namespace Lib\Wp\Abstracts;
 
-use Mwf\Wp\Interfaces;
+use Lib\Wp\Interfaces;
 
 /**
  * Abstract controller class

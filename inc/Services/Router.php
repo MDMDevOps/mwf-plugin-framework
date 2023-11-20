@@ -11,10 +11,10 @@
  * @since   1.0.0
  */
 
-namespace Mwf\Wp\Services;
+namespace Lib\Wp\Services;
 
-use Mwf\Wp\Abstracts,
-	Mwf\Wp\Interfaces;
+use Lib\Wp\Abstracts,
+	Lib\Wp\Interfaces;
 
 /**
  * Service class for router actions
