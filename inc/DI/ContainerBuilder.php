@@ -13,9 +13,10 @@
 
 namespace Mwf\Lib\DI;
 
-use DI\Definition\Source\DefinitionSource,
-	DI\Definition\Reference,
-	DI\Definition\Helper;
+use Mwf\Lib\Deps,
+	Mwf\Lib\Deps\DI\Definition\Source\DefinitionSource,
+	Mwf\Lib\Deps\DI\Definition\Reference,
+	Mwf\Lib\Deps\DI\Definition\Helper;
 
 use Mwf\Lib\Interfaces;
 
@@ -24,7 +25,7 @@ use Mwf\Lib\Interfaces;
  *
  * @subpackage DI
  */
-class ContainerBuilder extends \DI\ContainerBuilder
+class ContainerBuilder extends Deps\DI\ContainerBuilder
 {
 	/**
 	 * Saved containers for later retrieval
@@ -129,7 +130,7 @@ class ContainerBuilder extends \DI\ContainerBuilder
 	 */
 	public static function autowire( string $class_name = null ): Helper\DefinitionHelper
 	{
-		return \DI\autowire( $class_name );
+		return Deps\DI\autowire( $class_name );
 	}
 	/**
 	 * Helper for defining an object.
@@ -139,7 +140,7 @@ class ContainerBuilder extends \DI\ContainerBuilder
 	 */
 	public static function create( string $class_name = null ): Helper\DefinitionHelper
 	{
-		return \DI\create( $class_name );
+		return Deps\DI\create( $class_name );
 	}
 	/**
 	 * Wrapper for parent get function. Only used for simplicity
@@ -150,7 +151,7 @@ class ContainerBuilder extends \DI\ContainerBuilder
 	 */
 	public static function get( string $class_name ): Reference
 	{
-		return \DI\get( $class_name );
+		return Deps\DI\get( $class_name );
 	}
 
 	/**
@@ -161,6 +162,6 @@ class ContainerBuilder extends \DI\ContainerBuilder
 	 */
 	public static function factory( callable|array|string $factory ): Helper\DefinitionHelper
 	{
-		return \DI\factory( $factory );
+		return Deps\DI\factory( $factory );
 	}
 }

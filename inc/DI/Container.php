@@ -13,8 +13,9 @@
 
 namespace Mwf\Lib\DI;
 
-use DI\DependencyException,
-	DI\NotFoundException,
+use Mwf\Lib\Deps\DI, 
+	Mwf\Lib\Deps\DI\DependencyException,
+	Mwf\Lib\Deps\DI\NotFoundException,
 	WP_Error;
 
 /**
@@ -22,7 +23,7 @@ use DI\DependencyException,
  *
  * @subpackage DI
  */
-final class Container extends \DI\Container
+final class Container extends DI\Container
 {
 	/**
 	 * Returns an entry of the container by its name.

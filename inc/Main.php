@@ -14,9 +14,8 @@
 namespace Mwf\Lib;
 
 use Mwf\Lib\DI\Container,
-	Mwf\Lib\DI\ContainerBuilder;
-
-use DI\Definition\Source\DefinitionSource;
+	Mwf\Lib\DI\ContainerBuilder,
+	Mwf\Lib\Deps\DI\Definition\Source\DefinitionSource;
 /**
  * Main APp Class
  *
