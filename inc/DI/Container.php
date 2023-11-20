@@ -11,7 +11,7 @@
  * @since   1.0.0
  */
 
-namespace Mwf\Wp\App\DI;
+namespace Mwf\Wp\DI;
 
 use DI\DependencyException,
 	DI\NotFoundException,

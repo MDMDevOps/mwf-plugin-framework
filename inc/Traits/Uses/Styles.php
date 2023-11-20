@@ -11,9 +11,9 @@
  * @since   1.0.0
  */
 
-namespace Mwf\Wp\App\Traits\Uses;
+namespace Mwf\Wp\Traits\Uses;
 
-use Mwf\Wp\App\Interfaces;
+use Mwf\Wp\Interfaces;
 
 use DI\Attribute\Inject;
 

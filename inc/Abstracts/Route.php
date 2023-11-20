@@ -11,10 +11,10 @@
  * @since   1.0.0
  */
 
-namespace Mwf\Wp\App\Abstracts;
+namespace Mwf\Wp\Abstracts;
 
-use Mwf\Wp\App\Interfaces,
-	Mwf\Wp\App\Traits;
+use Mwf\Wp\Interfaces,
+	Mwf\Wp\Traits;
 
 /**
  * Route class

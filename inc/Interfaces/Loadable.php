@@ -11,12 +11,12 @@
  * @since   1.0.0
  */
 
-namespace Mwf\Wp\App\Interfaces;
+namespace Mwf\Wp\Interfaces;
 
 /**
  * Loadable interface requirements
  *
- * Used to type hint against Mwf\Wp\App\Interfaces\Loadable.
+ * Used to type hint against Mwf\Wp\Interfaces\Loadable.
  *
  * @subpackage Interfaces
  */

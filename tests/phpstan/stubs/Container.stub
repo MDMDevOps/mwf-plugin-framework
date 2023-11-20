@@ -1,5 +1,5 @@
 <?php
 
-namespace Mwf\Wp\App\DL;
+namespace Mwf\Wp\DL;
 
 class Container {}

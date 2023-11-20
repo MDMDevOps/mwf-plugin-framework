@@ -11,10 +11,10 @@
  * @since   1.0.0
  */
 
-namespace Mwf\Wp\App;
+namespace Mwf\Wp;
 
-use Mwf\Wp\App\DI\Container,
-	Mwf\Wp\App\DI\ContainerBuilder;
+use Mwf\Wp\DI\Container,
+	Mwf\Wp\DI\ContainerBuilder;
 
 use DI\Definition\Source\DefinitionSource;
 /**

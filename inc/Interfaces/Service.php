@@ -11,12 +11,12 @@
  * @since   1.0.0
  */
 
-namespace Mwf\Wp\App\Interfaces;
+namespace Mwf\Wp\Interfaces;
 
 /**
  * Service interface
  *
- * Used to type hint against Mwf\Wp\App\Interfaces\Service.
+ * Used to type hint against Mwf\Wp\Interfaces\Service.
  *
  * @subpackage Interfaces
  */

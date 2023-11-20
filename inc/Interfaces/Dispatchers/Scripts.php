@@ -11,12 +11,12 @@
  * @since   1.0.0
  */
 
-namespace Mwf\Wp\App\Interfaces\Dispatchers;
+namespace Mwf\Wp\Interfaces\Dispatchers;
 
 /**
  * Service interface
  *
- * Used to type hint against Mwf\Wp\App\Interfaces\Dispatchers\Scripts.
+ * Used to type hint against Mwf\Wp\Interfaces\Dispatchers\Scripts.
  *
  * @subpackage Interfaces
  */

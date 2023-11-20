@@ -11,12 +11,12 @@
  * @since   1.0.0
  */
 
-namespace Mwf\Wp\App\Interfaces\Handlers;
+namespace Mwf\Wp\Interfaces\Handlers;
 
 /**
  * Handlers\Environment interface
  *
- * Used to type hint against Mwf\Wp\App\Interfaces\Handlers\Environment.
+ * Used to type hint against Mwf\Wp\Interfaces\Handlers\Environment.
  *
  * @subpackage Interfaces
  */

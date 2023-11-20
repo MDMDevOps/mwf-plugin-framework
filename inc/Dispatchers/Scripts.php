@@ -11,11 +11,11 @@
  * @since   1.0.0
  */
 
-namespace Mwf\Wp\App\Dispatchers;
+namespace Mwf\Wp\Dispatchers;
 
-use Mwf\Wp\App\Abstracts,
-	Mwf\Wp\App\Interfaces,
-	Mwf\Wp\App\Traits;
+use Mwf\Wp\Abstracts,
+	Mwf\Wp\Interfaces,
+	Mwf\Wp\Traits;
 
 /**
  * Service class to control admin functions
