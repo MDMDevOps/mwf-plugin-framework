@@ -15,7 +15,7 @@ namespace Mwf\Lib\Traits\Uses;
 
 use Mwf\Lib\Interfaces;
 
-use DI\Attribute\Inject;
+use Mwf\Lib\Deps\DI\Attribute\Inject;
 
 /**
  * Trait to define functionality to use a script handler

@@ -13,7 +13,7 @@
 
 namespace Mwf\Lib\Traits;
 
-use DI\Attribute\Inject;
+use Mwf\Lib\Deps\DI\Attribute\Inject;
 
 /**
  * URL Handler Trait
