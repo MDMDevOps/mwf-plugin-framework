@@ -57,7 +57,6 @@ abstract class Loadable implements Interfaces\Loadable
 	 *
 	 * @return void
 	 */
-	#[Inject]
 	public function setPackage( #[Inject( 'app.package' )] string $package ): void
 	{
 		$this->package = trim( $package );
@@ -69,7 +68,6 @@ abstract class Loadable implements Interfaces\Loadable
 	 *
 	 * @return void
 	 */
-	#[Inject]
 	public function load(): void
 	{
 		if ( ! $this->hasLoaded() ) {

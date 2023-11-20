@@ -68,8 +68,37 @@ class Services extends Abstracts\Controller
 		add_filter( 'timber/twig', [ $this->compiler, 'loadFilters' ] );
 		add_filter( 'timber/locations', [ $this->compiler, 'templateLocations' ] );
 
+		$this->compiler->addFunction( 'has_action', 'has_action' );
+        $this->compiler->addFunction( 'do_action', 'do_action' );
+        $this->compiler->addFunction( 'apply_filters', 'apply_filters' );
+        $this->compiler->addFunction(
+            'do_function',
+            [ $this, 'doFunction' ],
+            [ 'is_variadic' => true ]
+        );
+
 		add_action( 'wp', [ $this->router, 'loadRoute' ] );
 		add_action( 'admin_init', [ $this->router, 'loadRoute' ] );
 		add_action( 'login_init', [ $this->router, 'loadRoute' ] );
 	}
+
+	    /**
+     * Wrapper to call functions from twig
+     *
+     * @param mixed ...$args : all arguments passed, unknown.
+     *
+     * @return mixed
+     */
+    public function doFunction( ...$args )
+    {
+        $function = array_shift( $args );
+        ob_start();
+        try {
+            $output  = is_callable( $function ) ? call_user_func( $function, ...$args ) : null;
+            $content = ob_get_clean();
+            return $output ?? $content;
+        } catch ( \Error $e ) {
+            return null;
+        }
+    }
 }

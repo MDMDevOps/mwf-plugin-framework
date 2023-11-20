@@ -33,6 +33,14 @@ interface Compiler
 	 */
 	public function templateLocations( array $locations ): array;
 	/**
+	 * Set the template directory
+	 *
+	 * @param string $template_directory : relative path to the template directory.
+	 *
+	 * @return void
+	 */
+	public function setTemplateDirectory( string $template_directory ): void;
+	/**
 	 * Register custom function with TWIG
 	 *
 	 * @param Environment $twig : instance of twig environment.
@@ -48,4 +56,30 @@ interface Compiler
 	 * @return Environment
 	 */
 	public function loadFilters( Environment $twig ): Environment;
+		/**
+	 * Add a function to collection of twig functions
+	 *
+	 * @param string                   $name : name of function to bind.
+	 * @param string|array<int, mixed> $callback : callback function.
+	 * @param array<string, mixed>     $args : args to add to twig function.
+	 *
+	 * @see https://twig.symfony.com/doc/3.x/advanced.html
+	 * @see https://timber.github.io/docs/guides/extending-timber/
+	 *
+	 * @return void
+	 */
+	public function addFunction( string $name, string|array $callback, array $args = [] ): void;
+	/**
+	 * Add a filter to collection of twig functions
+	 *
+	 * @param string                   $name : name of filter to bind.
+	 * @param string|array<int, mixed> $callback : callback function.
+	 * @param array<string, mixed>     $args : args to add to twig filter.
+	 *
+	 * @see https://twig.symfony.com/doc/3.x/advanced.html
+	 * @see https://timber.github.io/docs/guides/extending-timber/
+	 *
+	 * @return void
+	 */
+	public function addFilter( string $name, string|array $callback, array $args = [] ): void;
 }

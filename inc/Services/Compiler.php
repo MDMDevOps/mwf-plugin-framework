@@ -18,12 +18,14 @@ use App\Abstracts,
 	App\Traits,
 	Timber\Timber,
 	Timber\Loader,
-	Timber\Twig_Function,
-	Timber\Twig_Filter,
+	Twig\TwigFunction,
+	Twig\TwigFilter,
 	Twig\Environment,
 	Twig\Error\SyntaxError;
 
 use DI\Attribute\Inject;
+
+use LogicException;
 
 /**
  * Service class to compile twig files and provide timber functions
@@ -69,7 +71,7 @@ class Compiler extends Abstracts\Service implements Interfaces\Services\Compiler
 	 * @param string $template_directory : relative path to the template directory.
 	 */
 	public function __construct(
-		#[Inject( 'app.templates.dir' )] protected string $template_directory = 'template-parts'
+		#[Inject( 'app.templates.dir' )] protected string $template_directory = 'views'
 	) {
 		parent::__construct();
 	}
@@ -137,16 +139,51 @@ class Compiler extends Abstracts\Service implements Interfaces\Services\Compiler
 	public function templateLocations( array $locations ): array
 	{
 		if ( empty( $this->template_locations ) ) {
-			$this->template_locations = array_filter(
-				$locations,
-				function ( $location ) {
-					return str_contains( $location, $this->dir() );
-				}
+			$this->template_locations = array_map( [$this, 'filterTemplateLocations'], $locations );
+
+			$this->template_directory = apply_filters( 
+				"{$this->package}_template_directory",
+				$this->template_directory
 			);
 
-			$this->template_locations[] = $this->dir( $this->template_directory );
+			$package_template_directories = array_unique(
+				[
+					trailingslashit( get_stylesheet_directory() . '/' . $this->template_directory ),
+					trailingslashit( get_template_directory() . '/' . $this->template_directory ),
+					trailingslashit( $this->dir( $this->template_directory ) ),
+				]
+			);
+
+			$this->template_locations[ $this->package ] = apply_filters(
+				"{$this->package}_template_directories",
+				$package_template_directories
+			);
 		}
+
 		return $this->template_locations;
+	}
+	/**
+	 * Recursive function to remove library locations from twig search
+	 *
+	 * @param string|array $location
+	 *
+	 * @return boolean|array|string
+	 */
+	protected function filterTemplateLocations( string|array $location ) : bool|array|string
+	{
+		if ( is_array( $location ) ) {
+			$filtered_locations = array_filter(
+				$location,
+				function( $template_location ) {
+					return $this->filterTemplateLocations( $template_location );
+				}
+			);
+			return $filtered_locations;
+		}
+		elseif ( is_string( $location ) ) {
+			return str_contains( $location, __DIR__ ) ? false : $location;
+		}
+		return $location;
 	}
 	/**
 	 * Compile a twig/html template file using Timber
@@ -278,8 +315,8 @@ class Compiler extends Abstracts\Service implements Interfaces\Services\Compiler
 	{
 		foreach ( $this->getFunctions() as $name => $args ) {
 			try {
-				$twig->AddFunction( new Twig_Function( $name, $args['callback'], $args['args'] ) );
-			} catch ( \LogicException $e ) {
+				$twig->AddFunction( new TwigFunction( $name, $args['callback'], $args['args'] ) );
+			} catch ( LogicException $e ) {
 				unset( $this->functions[ $name ] );
 			}
 		}
@@ -296,8 +333,8 @@ class Compiler extends Abstracts\Service implements Interfaces\Services\Compiler
 	{
 		foreach ( $this->getFilters() as $name => $args ) {
 			try {
-				$twig->AddFilter( new Twig_Filter( $name, $args['callback'], $args['args'] ) );
-			} catch ( \LogicException $e ) {
+				$twig->AddFilter( new TwigFilter( $name, $args['callback'], $args['args'] ) );
+			} catch ( LogicException $e ) {
 				unset( $this->filters[ $name ] );
 			}
 		}

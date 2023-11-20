@@ -73,18 +73,17 @@ abstract class Service extends Loadable implements Interfaces\Service
 	{
 		return $this->enabled ?? true;
 	}
-	// /**
-	//  * Load actions and filters, and other setup requirements
-	//  *
-	//  * Depends on not having previously performed the load action
-	//  *
-	//  * @return void
-	//  */
-	// #[Inject]
-	// public function load(): void
-	// {
-	// 	if ( $this->isEnabled() ) {
-	// 		parent::load();
-	// 	}
-	// }
+	/**
+	 * Load actions and filters, and other setup requirements
+	 *
+	 * Depends on not having previously performed the load action
+	 *
+	 * @return void
+	 */
+	public function load(): void
+	{
+		if ( $this->isEnabled() ) {
+			parent::load();
+		}
+	}
 }

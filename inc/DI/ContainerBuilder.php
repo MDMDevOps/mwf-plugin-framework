@@ -96,14 +96,26 @@ class ContainerBuilder extends \DI\ContainerBuilder
 	{
 		if ( is_array( $definitions ) ) {
 			foreach ( $definitions as $key => $definition ) {
-				/**
-				 * Setup class alias for interface definitions
-				 */
-				if ( ! class_exists( $key ) ) {
+
+				if ( ! is_subclass_of( $definition, Helper\DefinitionHelper::class ) ) {
 					continue;
 				}
-				if ( in_array( Interfaces\Controller::class, class_implements( $key ), true ) ) {
-					$this->addDefinitions( $key::getServiceDefinitions() );
+
+				$class = $definition->getDefinition( $key )->getClassName();
+
+				if ( ! class_exists( $class ) ) {
+					continue;
+				}
+
+				$interfaces = class_implements( $class  );
+
+				if ( in_array( Interfaces\Controller::class, $interfaces, true ) ) {
+					$this->addDefinitions( $class::getServiceDefinitions() );
+				}
+
+				if ( in_array( Interfaces\Loadable::class, $interfaces, true ) ) {
+					$definition->method( 'setPackage', self::get( 'app.package' ) )
+						->method( 'load' );
 				}
 			}
 		}

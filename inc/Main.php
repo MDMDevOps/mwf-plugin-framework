@@ -46,9 +46,6 @@ class Main extends Abstracts\Loadable
 	 */
 	public function __construct( string $package = '', $root_file = '' )
 	{
-		/**
-		 * Maybe set package
-		 */
 		if ( ! isset( $this->package ) ) {
 			if ( empty( $package ) ) {
 				throw new \ValueError( esc_html__( 'Package ID is required' ) );
