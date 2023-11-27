@@ -14,29 +14,21 @@
 namespace Mwf\Lib\Controllers;
 
 use Mwf\Lib\DI\ContainerBuilder,
+	Mwf\Lib\Deps\DI\Attribute\Inject,
+	Mwf\Lib\DI\OnMount,
 	Mwf\Lib\Services as Service,
 	Mwf\Lib\Interfaces,
-	Mwf\Lib\Abstracts;
+	Mwf\Lib\Traits,
+	Mwf\Lib\Abstracts,
+	Mwf\Lib\Helpers;
 
 /**
  * Controls the registration and execution of services
  *
  * @subpackage Controllers
  */
-class Services extends Abstracts\Controller
+class Services extends Abstracts\Mountable implements Interfaces\Controller
 {
-	/**
-	 * Constructor for new instances
-	 *
-	 * @param Interfaces\Services\Compiler $compiler : Compiler service instance.
-	 * @param Interfaces\Services\Router   $router : Router service instance.
-	 */
-	public function __construct(
-		protected Interfaces\Services\Compiler $compiler,
-		protected Interfaces\Services\Router $router
-	) {
-		parent::__construct();
-	}
 	/**
 	 * Get definitions that should be added to the service container
 	 *
@@ -58,47 +50,46 @@ class Services extends Abstracts\Controller
 		];
 	}
 	/**
-	 * Actions to perform when the class is loaded
+	 * Mount router functions/filters
+	 *
+	 * @param Interfaces\Services\Router $router
 	 *
 	 * @return void
 	 */
-	public function onLoad(): void
+	#[OnMount]
+	public function mountRouter( Interfaces\Services\Router $router ): void
 	{
-		add_filter( 'timber/twig', [ $this->compiler, 'loadFunctions' ] );
-		add_filter( 'timber/twig', [ $this->compiler, 'loadFilters' ] );
-		add_filter( 'timber/locations', [ $this->compiler, 'templateLocations' ] );
-
-		$this->compiler->addFunction( 'has_action', 'has_action' );
-        $this->compiler->addFunction( 'do_action', 'do_action' );
-        $this->compiler->addFunction( 'apply_filters', 'apply_filters' );
-        $this->compiler->addFunction(
-            'do_function',
-            [ $this, 'doFunction' ],
-            [ 'is_variadic' => true ]
-        );
-
-		add_action( 'wp', [ $this->router, 'loadRoute' ] );
-		add_action( 'admin_init', [ $this->router, 'loadRoute' ] );
-		add_action( 'login_init', [ $this->router, 'loadRoute' ] );
+		add_action( 'wp', [ $router, 'loadRoute' ] );
+		add_action( 'admin_init', [ $router, 'loadRoute' ] );
+		add_action( 'login_init', [ $router, 'loadRoute' ] );
 	}
+	/**
+	 * Mount compiler filters & add twig functions
+	 *
+	 * @param Interfaces\Services\Compiler $compiler
+	 *
+	 * @return void
+	 */
+	#[OnMount]
+	public function mountCompiler( Interfaces\Services\Compiler $compiler ): void
+	{
+		add_filter( 'timber/twig', [ $compiler, 'loadFunctions' ] );
+		add_filter( 'timber/twig', [ $compiler, 'loadFilters' ] );
+		add_filter( 'timber/locations', [ $compiler, 'templateLocations' ] );
 
-	    /**
-     * Wrapper to call functions from twig
-     *
-     * @param mixed ...$args : all arguments passed, unknown.
-     *
-     * @return mixed
-     */
-    public function doFunction( ...$args )
-    {
-        $function = array_shift( $args );
-        ob_start();
-        try {
-            $output  = is_callable( $function ) ? call_user_func( $function, ...$args ) : null;
-            $content = ob_get_clean();
-            return $output ?? $content;
-        } catch ( \Error $e ) {
-            return null;
-        }
-    }
+		add_action( "{$this->package}_render_template", [ $compiler, 'render' ], 10, 2 );
+		add_filter( "{$this->package}_compile_template", [ $compiler, 'compile' ], 10, 2 );
+
+		add_action( "{$this->package}_render_string", [ $compiler, 'renderString' ], 10, 2 );
+		add_filter( "{$this->package}_compile_string", [ $compiler, 'compileString' ], 10, 2 );
+
+		$compiler->addFunction( 'has_action', 'has_action' );
+		$compiler->addFunction( 'do_action', 'do_action' );
+		$compiler->addFunction( 'apply_filters', 'apply_filters' );
+		$compiler->addFunction(
+			'do_function',
+			[ Helpers::class, 'doFunction' ],
+			[ 'is_variadic' => true ]
+		);
+	}
 }

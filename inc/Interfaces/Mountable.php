@@ -20,32 +20,18 @@ namespace Mwf\Lib\Interfaces;
  *
  * @subpackage Interfaces
  */
-interface Loadable
+interface Mountable
 {
-	/**
-	 * Load actions and filters, and other setup requirements
-	 *
-	 * @return void
-	 */
-	public function load(): void;
-	/**
-	 * Perform all functionality required to run when a class loads
-	 *
-	 * @return void
-	 */
-	public function onLoad(): void;
 	/**
 	 * Check if loading action has already fired
 	 *
 	 * @return int
 	 */
-	public function hasLoaded(): int;
+	public function hasMounted(): int;
 	/**
-	 * Set the name of the package this class belongs to
-	 *
-	 * @param string $package : string name of the package.
+	 * Fire Mounted action on mount
 	 *
 	 * @return void
 	 */
-	public function setPackage( string $package ): void;
+	public function onMount(): void;
 }

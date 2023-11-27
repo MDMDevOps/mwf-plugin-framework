@@ -5,7 +5,7 @@ namespace Mwf\Lib\Deps\Timber\Factory;
 use Mwf\Lib\Deps\Timber\CoreInterface;
 use Mwf\Lib\Deps\Timber\Menu;
 use Mwf\Lib\Deps\Timber\MenuItem;
-use WP_Post;
+use Mwf\Lib\Deps\WP_Post;
 /**
  * Internal API class for instantiating Menus
  * @internal

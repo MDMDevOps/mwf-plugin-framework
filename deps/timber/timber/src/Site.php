@@ -2,7 +2,7 @@
 
 namespace Mwf\Lib\Deps\Timber;
 
-use WP_Site;
+use Mwf\Lib\Deps\WP_Site;
 /**
  * Class Site
  *

@@ -27,12 +27,11 @@ interface Directory
 	 *
 	 * Can include an additional string, to make it relative to a different file
 	 *
-	 * @param string $root : root path of the plugin.
-	 * @param string $append : string to append to base directory path.
+	 * @param string $dir : root path of the plugin.
 	 *
 	 * @return void
 	 */
-	public function setDir( string $root, string $append = '' ): void;
+	public function setDir( string $dir ): void;
 	/**
 	 * Get the directory path with string appended
 	 *

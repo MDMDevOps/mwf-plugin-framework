@@ -2,8 +2,8 @@
 
 namespace Mwf\Lib\Deps\Timber\Integration;
 
-use WP_Post;
-use WPML_LS_Menu_Item;
+use Mwf\Lib\Deps\WP_Post;
+use Mwf\Lib\Deps\WPML_LS_Menu_Item;
 /** @internal */
 class WpmlIntegration implements IntegrationInterface
 {

@@ -223,11 +223,14 @@ class ExpressionParser
                     9,
                     ':'
                 )) {
+                    // Ternary operator (expr ? expr2 : expr3)
                     $expr3 = $this->parseExpression();
                 } else {
+                    // Ternary without else (expr ? expr2)
                     $expr3 = new ConstantExpression('', $this->parser->getCurrentToken()->getLine());
                 }
             } else {
+                // Ternary without then (expr ?: expr3)
                 $expr2 = $expr;
                 $expr3 = $this->parseExpression();
             }
@@ -592,9 +595,6 @@ class ExpressionParser
                 throw new SyntaxError(\sprintf('Expected name or number, got value "%s" of type %s.', $token->getValue(), Token::typeToEnglish($token->getType())), $lineno, $stream->getSourceContext());
             }
             if ($node instanceof NameExpression && null !== $this->parser->getImportedSymbol('template', $node->getAttribute('name'))) {
-                if (!$arg instanceof ConstantExpression) {
-                    throw new SyntaxError(\sprintf('Dynamic macro names are not supported (called on "%s").', $node->getAttribute('name')), $token->getLine(), $stream->getSourceContext());
-                }
                 $name = $arg->getAttribute('value');
                 $node = new MethodCallExpression($node, 'macro_' . $name, $arguments, $lineno);
                 $node->setAttribute('safe', \true);

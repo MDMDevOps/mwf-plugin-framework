@@ -76,6 +76,7 @@ abstract class IntegrationTestCase extends TestCase
     }
     /**
      * @dataProvider getLegacyTests
+     *
      * @group legacy
      */
     public function testLegacyIntegration($file, $message, $condition, $templates, $exception, $outputs, $deprecation = '')
@@ -90,7 +91,7 @@ abstract class IntegrationTestCase extends TestCase
             if (!\preg_match('/\\.test$/', $file)) {
                 continue;
             }
-            if ($legacyTests xor \false !== \strpos($file->getRealpath(), '.legacy.test')) {
+            if ($legacyTests xor \str_contains($file->getRealpath(), '.legacy.test')) {
                 continue;
             }
             $test = \file_get_contents($file->getRealpath());

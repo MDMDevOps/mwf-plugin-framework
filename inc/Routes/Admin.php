@@ -13,21 +13,27 @@
 
 namespace Mwf\Lib\Routes;
 
-use Mwf\Lib\Abstracts;
+use Mwf\Lib\Abstracts,
+	Mwf\Lib\Traits,
+	Mwf\Lib\Interfaces,
+	Mwf\Lib\DI\OnMount;
 
 /**
  * Admin router class
  *
  * @subpackage Route
  */
-class Admin extends Abstracts\Route
+class Admin extends Abstracts\Mountable implements Interfaces\Uses\ScriptDispatcher, Interfaces\Uses\StyleDispatcher
 {
+	use Traits\Uses\ScriptDispatcher;
+	use Traits\Uses\StyleDispatcher;
 	/**
 	 * Load actions and filters, and other setup requirements
 	 *
 	 * @return void
 	 */
-	public function onLoad(): void
+	#[OnMount]
+	public function mount(): void
 	{
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueueAssets' ] );
 	}
@@ -38,11 +44,11 @@ class Admin extends Abstracts\Route
 	 */
 	public function enqueueAssets(): void
 	{
-		$this->script_handler->enqueue(
+		$this->enqueueScript(
 			'admin',
 			'admin/bundle.js'
 		);
-		$this->style_handler->enqueue(
+		$this->enqueueStyle(
 			'admin',
 			'admin/bundle.css'
 		);

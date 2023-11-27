@@ -36,29 +36,29 @@ use LogicException;
  *
  * @subpackage Services
  */
-class Compiler extends Abstracts\Service implements Interfaces\Services\Compiler, Interfaces\Handlers\Directory
+class Compiler extends Abstracts\Mountable implements Interfaces\Services\Compiler, Interfaces\Handlers\Directory
 {
-	use Traits\DirectoryHandler;
-	use Traits\EnvironmentHandler;
+	use Traits\Handlers\Directory;
+	use Traits\Handlers\Environment;
 
 	/**
 	 * Twig functions to add
 	 *
 	 * @var array<string, array<string, mixed>>
 	 */
-	private array $functions = [];
+	protected array $functions = [];
 	/**
 	 * Twig filters to add
 	 *
 	 * @var array<string, array<string, mixed>>
 	 */
-	private array $filters = [];
+	protected array $filters = [];
 	/**
 	 * Cached template locations for timber to search for templates
 	 *
 	 * @var array<string>
 	 */
-	private array $template_locations = [];
+	protected array $template_locations = [];
 	/**
 	 * Instance of twig
 	 *
@@ -66,44 +66,19 @@ class Compiler extends Abstracts\Service implements Interfaces\Services\Compiler
 	 */
 	protected ?Environment $twig;
 	/**
-	 * Constructor for new service instance
+	 * Set the base directory - relative to the main plugin file
 	 *
-	 * @param string $template_directory : relative path to the template directory.
-	 */
-	public function __construct(
-		#[Inject( 'app.templates.dir' )] protected string $template_directory = 'views'
-	) {
-		parent::__construct();
-	}
-	/**
-	 * Set the template directory
+	 * Can include an additional string, to make it relative to a different file
 	 *
-	 * @param string $template_directory : relative path to the template directory.
+	 * @param string $root : root path of the plugin.
+	 * @param string      $append : string to append to base directory path.
 	 *
 	 * @return void
 	 */
-	public function setTemplateDirectory( string $template_directory ): void
+	#[Inject]
+	public function setDir( #[Inject( 'views.dir' )] string $dir ): void
 	{
-		$this->$template_directory = trim( $template_directory );
-	}
-	/**
-	 * Load actions and filters, and other setup requirements
-	 *
-	 * Package specific actions/filters are loaded by the service directly. This
-	 * method allows child classes extending this class to inherit those
-	 * actions & have them loaded.
-	 *
-	 * Actions/filters that should not be duplicated are loaded by a controller.
-	 *
-	 * @return void
-	 */
-	public function onLoad(): void
-	{
-		add_action( "{$this->package}_render_template", [ $this, 'render' ], 10, 2 );
-		add_filter( "{$this->package}_compile_template", [ $this, 'compileByFilter' ], 10, 3 );
-
-		add_action( "{$this->package}_render_string", [ $this, 'renderString' ], 10, 2 );
-		add_filter( "{$this->package}_compile_string", [ $this, 'compileString' ], 10, 2 );
+		$this->dir = untrailingslashit( $dir );
 	}
 	/**
 	 * Add the 'post' to context, if not already present.
@@ -150,7 +125,7 @@ class Compiler extends Abstracts\Service implements Interfaces\Services\Compiler
 				[
 					trailingslashit( get_stylesheet_directory() . '/' . $this->template_directory ),
 					trailingslashit( get_template_directory() . '/' . $this->template_directory ),
-					trailingslashit( $this->dir( $this->template_directory ) ),
+					trailingslashit( $this->dir() ),
 				]
 			);
 

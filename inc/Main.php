@@ -14,8 +14,7 @@
 namespace Mwf\Lib;
 
 use Mwf\Lib\DI\Container,
-	Mwf\Lib\DI\ContainerBuilder,
-	Mwf\Lib\Deps\DI\Definition\Source\DefinitionSource;
+	Mwf\Lib\DI\ContainerBuilder;
 /**
  * Main APp Class
  *
@@ -23,10 +22,10 @@ use Mwf\Lib\DI\Container,
  *
  * @subpackage Traits
  */
-class Main extends Abstracts\Loadable
+class Main extends Abstracts\Mountable
 {
-	use Traits\UrlHandler;
-	use Traits\DirectoryHandler;
+	use Traits\Handlers\Url;
+	use Traits\Handlers\Directory;
 
 	/**
 	 * The service container for dependency injections, and locating service
@@ -45,7 +44,10 @@ class Main extends Abstracts\Loadable
 	 */
 	public function __construct( string $package = '', $root_file = '' )
 	{
-		if ( ! isset( $this->package ) ) {
+		/**
+		 * Maybe set package
+		 */
+		if ( empty( $this->package ) ) {
 			if ( empty( $package ) ) {
 				throw new \ValueError( esc_html__( 'Package ID is required' ) );
 			} else {
@@ -55,7 +57,7 @@ class Main extends Abstracts\Loadable
 		/**
 		 * Maybe set url
 		 */
-		if ( ! isset( $this->url ) ) {
+		if ( empty( $this->url ) ) {
 			if ( empty( $root_file ) ) {
 				throw new \ValueError( esc_html__( 'Root plugin file required to set URL' ) );
 			} else {
@@ -65,7 +67,7 @@ class Main extends Abstracts\Loadable
 		/**
 		 * Maybe set dir
 		 */
-		if ( ! isset( $this->dir ) ) {
+		if ( empty( $this->dir ) ) {
 			if ( empty( $root_file ) ) {
 				throw new \ValueError( esc_html__( 'Root plugin file required to set DIR' ) );
 			} else {
@@ -132,6 +134,7 @@ class Main extends Abstracts\Loadable
 			$container = $this->buildContainer();
 			ContainerBuilder::cacheContainer( static::class, $container );
 		}
+		
 		return $container;
 	}
 	/**
@@ -145,8 +148,9 @@ class Main extends Abstracts\Loadable
 			'app.package'                  => $this->package,
 			'app.url'                      => $this->url,
 			'app.dir'                      => $this->dir,
-			'app.assets.dir'               => 'dist',
-			'app.templates.dir'            => 'template-parts',
+			'assets.url'                   => $this->url( 'dist' ),
+			'assets.dir'                   => $this->dir( 'dist' ),
+			'views.dir'                    => 'views',
 			Controllers\Dispatchers::class => ContainerBuilder::autowire(),
 			Controllers\Routes::class      => ContainerBuilder::autowire(),
 			Controllers\Services::class    => ContainerBuilder::autowire(),
@@ -154,22 +158,25 @@ class Main extends Abstracts\Loadable
 
 		return $definitions;
 	}
-	/**
-	 * Instantiate controllers
-	 *
-	 * @return void
-	 */
-	public function onLoad(): void
+
+	public function mount(): void
 	{
-		/**
-		 * Package actions/filters
-		 */
+		$this->mountActions();
+		$this->mountControllers();
+		parent::onMount();
+	}
+
+	public function mountActions(): void
+	{
 		add_filter( "{$this->package}_has_route", [ $this, 'hasRoute' ], 5, 2 );
 		add_action( "{$this->package}_load_route", [ $this, 'loadRoute' ], 5 );
+	}
 
-		$this->service_container->get( Controllers\Dispatchers::class );
-		$this->service_container->get( Controllers\Routes::class );
+	public function mountControllers(): void
+	{
 		$this->service_container->get( Controllers\Services::class );
+		$this->service_container->get( Controllers\Routes::class );
+		$this->service_container->get( Controllers\Dispatchers::class );
 	}
 	/**
 	 * Check if a particular route exists
@@ -181,8 +188,7 @@ class Main extends Abstracts\Loadable
 	 */
 	public function hasRoute( bool $has_route, string $route_alias ): bool
 	{
-		$has_route = $this->service_container->has( $route_alias );
-		return $has_route;
+		return $this->service_container->has( $route_alias );
 	}
 	/**
 	 * Load a route from the service container

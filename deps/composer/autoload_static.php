@@ -4,12 +4,12 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticIniteea120ecc59b96d9e0bce79acffb16d8
+class ComposerStaticInit10f0dce8d92e0a3672c34fe7aa43b4fd
 {
     public static $files = array (
+        'mwf\lib\depsa4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
         'mwf\lib\deps320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         'mwf\lib\deps0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
-        'mwf\lib\depsa4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
         'mwf\lib\depsb33e3d135e5d9e47d845c576147bda89' => __DIR__ . '/..' . '/php-di/php-di/src/functions.php',
     );
 
@@ -517,9 +517,9 @@ class ComposerStaticIniteea120ecc59b96d9e0bce79acffb16d8
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticIniteea120ecc59b96d9e0bce79acffb16d8::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticIniteea120ecc59b96d9e0bce79acffb16d8::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticIniteea120ecc59b96d9e0bce79acffb16d8::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit10f0dce8d92e0a3672c34fe7aa43b4fd::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit10f0dce8d92e0a3672c34fe7aa43b4fd::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit10f0dce8d92e0a3672c34fe7aa43b4fd::$classMap;
 
         }, null, ClassLoader::class);
     }

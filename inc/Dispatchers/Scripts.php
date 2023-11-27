@@ -13,7 +13,8 @@
 
 namespace Mwf\Lib\Dispatchers;
 
-use Mwf\Lib\Abstracts,
+use Mwf\Lib\Deps\DI\Attribute\Inject,
+	Mwf\Lib\Abstracts,
 	Mwf\Lib\Interfaces,
 	Mwf\Lib\Traits;
 
@@ -25,12 +26,41 @@ use Mwf\Lib\Abstracts,
  *
  * @subpackage Dispatchers
  */
-class Scripts extends Abstracts\Service implements Interfaces\Dispatchers\Scripts, Interfaces\Handlers\Assets, Interfaces\Handlers\Directory, Interfaces\Handlers\Url
+class Scripts extends Abstracts\Mountable implements
+	Interfaces\Dispatchers\Scripts,
+	Interfaces\Handlers\Directory,
+	Interfaces\Handlers\Url
 {
-	use Traits\AssetHandler;
-	use Traits\UrlHandler;
-	use Traits\DirectoryHandler;
-
+	use Traits\Handlers\Url;
+	use Traits\Handlers\Directory;
+	/**
+	 * Set the base directory - relative to the main plugin file
+	 *
+	 * Can include an additional string, to make it relative to a different file
+	 *
+	 * @param string $root : root path of the plugin.
+	 * @param string      $append : string to append to base directory path.
+	 *
+	 * @return void
+	 */
+	#[Inject]
+	public function setDir( #[Inject( 'assets.dir' )] string $dir ): void
+	{
+		$this->dir = untrailingslashit( $dir );
+	}
+	/**
+	 * Set the base URL
+	 * Can include an additional string for appending to the URL of the plugin
+	 *
+	 * @param string $url : root directory to use.
+	 *
+	 * @return void
+	 */
+	#[Inject]
+	public function setUrl( #[Inject( 'assets.url' )] string $url ): void
+	{
+		$this->url = untrailingslashit( $url );
+	}
 	/**
 	 * Get script assets from {handle}.asset.php
 	 *
@@ -44,9 +74,11 @@ class Scripts extends Abstracts\Service implements Interfaces\Dispatchers\Script
 	{
 		$asset_file = sprintf(
 			'%s/%s.asset.php',
-			$this->dir( $this->asset_dir ),
+			$this->dir(),
 			str_ireplace( '.js', '', $path )
 		);
+
+		
 
 		if ( is_file( $asset_file ) ) {
 			$args = include $asset_file;
@@ -111,7 +143,7 @@ class Scripts extends Abstracts\Service implements Interfaces\Dispatchers\Script
 		/**
 		 * Get full file path
 		 */
-		$file = $this->dir( "{$this->asset_dir}/{$path}" );
+		$file = $this->dir( $path );
 		/**
 		 * Bail if local file, but empty
 		 */
@@ -130,7 +162,7 @@ class Scripts extends Abstracts\Service implements Interfaces\Dispatchers\Script
 
 			$handle = str_replace( [ '/', '\\', ' ' ], '-', $this->package ) . '-' . $handle;
 
-			$path = $this->url( "{$this->asset_dir}/{$path}" );
+			$path = $this->url( $path );
 		}
 
 		$valid = str_starts_with( $path, '//' )

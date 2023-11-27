@@ -53,7 +53,7 @@ final class EscaperNodeVisitor implements NodeVisitorInterface
         } elseif ($node instanceof AutoEscapeNode) {
             $this->statusStack[] = $node->getAttribute('value');
         } elseif ($node instanceof BlockNode) {
-            $this->statusStack[] = isset($this->blocks[$node->getAttribute('name')]) ? $this->blocks[$node->getAttribute('name')] : $this->needEscaping($env);
+            $this->statusStack[] = $this->blocks[$node->getAttribute('name')] ?? $this->needEscaping();
         } elseif ($node instanceof ImportNode) {
             $this->safeVars[] = $node->getNode('var')->getAttribute('name');
         }
@@ -67,7 +67,7 @@ final class EscaperNodeVisitor implements NodeVisitorInterface
             $this->blocks = [];
         } elseif ($node instanceof FilterExpression) {
             return $this->preEscapeFilterNode($node, $env);
-        } elseif ($node instanceof PrintNode && \false !== ($type = $this->needEscaping($env))) {
+        } elseif ($node instanceof PrintNode && \false !== ($type = $this->needEscaping())) {
             $expression = $node->getNode('expr');
             if ($expression instanceof ConditionalExpression && $this->shouldUnwrapConditional($expression, $env, $type)) {
                 return new DoNode($this->unwrapConditional($expression, $env, $type), $expression->getTemplateLine());
@@ -77,7 +77,7 @@ final class EscaperNodeVisitor implements NodeVisitorInterface
         if ($node instanceof AutoEscapeNode || $node instanceof BlockNode) {
             \array_pop($this->statusStack);
         } elseif ($node instanceof BlockReferenceNode) {
-            $this->blocks[$node->getAttribute('name')] = $this->needEscaping($env);
+            $this->blocks[$node->getAttribute('name')] = $this->needEscaping();
         }
         return $node;
     }
@@ -151,12 +151,12 @@ final class EscaperNodeVisitor implements NodeVisitorInterface
         }
         return \in_array($type, $safe) || \in_array('all', $safe);
     }
-    private function needEscaping(Environment $env)
+    private function needEscaping()
     {
         if (\count($this->statusStack)) {
             return $this->statusStack[\count($this->statusStack) - 1];
         }
-        return $this->defaultStrategy ? $this->defaultStrategy : \false;
+        return $this->defaultStrategy ?: \false;
     }
     private function getEscaperFilter(string $type, Node $node) : FilterExpression
     {

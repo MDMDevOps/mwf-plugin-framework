@@ -5,8 +5,8 @@ namespace Mwf\Lib\Deps\Timber\Factory;
 use InvalidArgumentException;
 use Mwf\Lib\Deps\Timber\CoreInterface;
 use Mwf\Lib\Deps\Timber\Term;
-use WP_Term;
-use WP_Term_Query;
+use Mwf\Lib\Deps\WP_Term;
+use Mwf\Lib\Deps\WP_Term_Query;
 /**
  * Internal API class for instantiating Terms
  * @internal

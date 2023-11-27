@@ -33,14 +33,6 @@ interface Compiler
 	 */
 	public function templateLocations( array $locations ): array;
 	/**
-	 * Set the template directory
-	 *
-	 * @param string $template_directory : relative path to the template directory.
-	 *
-	 * @return void
-	 */
-	public function setTemplateDirectory( string $template_directory ): void;
-	/**
 	 * Register custom function with TWIG
 	 *
 	 * @param Environment $twig : instance of twig environment.

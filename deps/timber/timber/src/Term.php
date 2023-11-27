@@ -3,7 +3,7 @@
 namespace Mwf\Lib\Deps\Timber;
 
 use Mwf\Lib\Deps\Timber\Factory\TermFactory;
-use WP_Term;
+use Mwf\Lib\Deps\WP_Term;
 /**
  * Class Term
  *

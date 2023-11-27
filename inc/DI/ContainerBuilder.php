@@ -13,12 +13,13 @@
 
 namespace Mwf\Lib\DI;
 
-use Mwf\Lib\Deps,
+use Mwf\Lib\Helpers,
+	Mwf\Lib\Traits,
+	Mwf\Lib\Interfaces,
+	Mwf\Lib\Deps,
 	Mwf\Lib\Deps\DI\Definition\Source\DefinitionSource,
 	Mwf\Lib\Deps\DI\Definition\Reference,
 	Mwf\Lib\Deps\DI\Definition\Helper;
-
-use Mwf\Lib\Interfaces;
 
 /**
  * Builder for Service Containers
@@ -79,7 +80,7 @@ class ContainerBuilder extends Deps\DI\ContainerBuilder
 	public function addDefinitions( string|array|DefinitionSource ...$definitions ): self
 	{
 		foreach ( $definitions as $definition ) {
-			$this->autowireControllers( $definition );
+			$this->prewireDefinitions( $definition );
 		}
 
 		parent::addDefinitions( ...$definitions );
@@ -93,38 +94,24 @@ class ContainerBuilder extends Deps\DI\ContainerBuilder
 	 *
 	 * @return void
 	 */
-	protected function autowireControllers( string|array|DefinitionSource $definitions ): void
+	protected function prewireDefinitions( string|array|DefinitionSource $definitions, string $key = '' ): void
 	{
 		if ( is_array( $definitions ) ) {
 			foreach ( $definitions as $key => $definition ) {
-
-				if ( ! is_subclass_of( $definition, Helper\DefinitionHelper::class ) ) {
-					continue;
-				}
-
-				$class = $definition->getDefinition( $key )->getClassName();
-
-				if ( ! class_exists( $class ) ) {
-					continue;
-				}
-
-				$interfaces = class_implements( $class  );
-
-				if ( in_array( Interfaces\Controller::class, $interfaces, true ) ) {
-					$this->addDefinitions( $class::getServiceDefinitions() );
-				}
-
-				if ( in_array( Interfaces\Loadable::class, $interfaces, true ) ) {
-					$definition->method( 'setPackage', self::get( 'app.package' ) )
-						->method( 'load' );
+				if ( is_subclass_of( $definition, Helper\DefinitionHelper::class ) ) {
+					$class_name = $definition->getDefinition( $key )->getClassName();
+		
+					if ( Helpers::implements( $class_name, Interfaces\Controller::class ) ) {
+						$this->addDefinitions( $class_name::getServiceDefinitions() );
+					}
 				}
 			}
 		}
 	}
 	/**
-	 * Wrapper for parent autowire function. Only used for simplicity
+	 * Wrapper for parent auto wire function. Only used for simplicity
 	 *
-	 * @param string $class_name : name of service to autowire.
+	 * @param string $class_name : name of service to auto wire.
 	 *
 	 * @return Helper\DefinitionHelper
 	 */

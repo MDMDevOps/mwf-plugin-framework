@@ -26,12 +26,11 @@ interface Url
 	 * Set the base URL
 	 * Can include an additional string for appending to the URL of the plugin
 	 *
-	 * @param string $root : root directory to use, default plugin root.
-	 * @param string      $append : string to append to base URL.
+	 * @param string $url : root url to use.
 	 *
 	 * @return void
 	 */
-	public function setUrl( string $root, string $append = '' ): void;
+	public function setUrl( string $url ): void;
 	/**
 	 * Get the url with string appended
 	 *

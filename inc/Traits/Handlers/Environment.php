@@ -11,7 +11,7 @@
  * @since   1.0.0
  */
 
-namespace Mwf\Lib\Traits;
+namespace Mwf\Lib\Traits\Handlers;
 
 use Mwf\Lib\Deps\DI\Attribute\Inject;
 
@@ -22,7 +22,7 @@ use Mwf\Lib\Deps\DI\Attribute\Inject;
  *
  * @subpackage Traits
  */
-trait EnvironmentHandler
+trait Environment
 {
 	/**
 	 * Environment Type

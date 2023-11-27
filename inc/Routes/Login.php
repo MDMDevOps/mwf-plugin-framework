@@ -13,13 +13,44 @@
 
 namespace Mwf\Lib\Routes;
 
-use Mwf\Lib\Abstracts;
+use Mwf\Lib\Abstracts,
+	Mwf\Lib\Traits,
+	Mwf\Lib\Interfaces,
+	Mwf\Lib\DI\OnMount;
 
 /**
  * Login router class
  *
  * @subpackage Route
  */
-class Login extends Abstracts\Route
+class Login extends Abstracts\Mountable implements Interfaces\Uses\ScriptDispatcher, Interfaces\Uses\StyleDispatcher
 {
+    use Traits\Uses\ScriptDispatcher;
+	use Traits\Uses\StyleDispatcher;
+    /**
+	 * Load actions and filters, and other setup requirements
+	 *
+	 * @return void
+	 */
+	#[OnMount]
+	public function mount(): void
+	{
+		add_action( 'login_enqueue_scripts', [ $this, 'enqueueAssets' ] );
+	}
+	/**
+	 * Enqueue admin styles and JS bundles
+	 *
+	 * @return void
+	 */
+	public function enqueueAssets(): void
+	{
+		$this->enqueueScript(
+			'login',
+			'login/bundle.js'
+		);
+		$this->enqueueStyle(
+			'login',
+			'login/bundle.css'
+		);
+	}
 }

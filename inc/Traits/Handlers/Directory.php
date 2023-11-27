@@ -11,7 +11,7 @@
  * @since   1.0.0
  */
 
-namespace Mwf\Lib\Traits;
+namespace Mwf\Lib\Traits\Handlers;
 
 use Mwf\Lib\Deps\DI\Attribute\Inject;
 
@@ -22,7 +22,7 @@ use Mwf\Lib\Deps\DI\Attribute\Inject;
  *
  * @subpackage Traits
  */
-trait DirectoryHandler
+trait Directory
 {
 	/**
 	 * Directory path to plugin instance
@@ -35,15 +35,14 @@ trait DirectoryHandler
 	 *
 	 * Can include an additional string, to make it relative to a different file
 	 *
-	 * @param string $root : root path of the plugin.
-	 * @param string      $append : string to append to base directory path.
+	 * @param string $dir : root path of the plugin.
 	 *
 	 * @return void
 	 */
 	#[Inject]
-	public function setDir( #[Inject( 'app.dir' )] string $root, string $append = '' ): void
+	public function setDir( #[Inject( 'app.dir' )] string $dir ): void
 	{
-			$this->dir = $this->appendDir( $root, $append );
+		$this->dir = $this->appendDir( $dir );
 	}
 	/**
 	 * Get the directory path with string appended

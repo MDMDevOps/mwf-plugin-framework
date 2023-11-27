@@ -30,7 +30,7 @@ final class Profile implements \IteratorAggregate, \Serializable
     {
         $this->template = $template;
         $this->type = $type;
-        $this->name = 0 === \strpos($name, '__internal_') ? 'INTERNAL' : $name;
+        $this->name = \str_starts_with($name, '__internal_') ? 'INTERNAL' : $name;
         $this->enter();
     }
     public function getTemplate() : string

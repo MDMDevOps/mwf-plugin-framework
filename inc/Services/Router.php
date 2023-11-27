@@ -21,7 +21,7 @@ use Mwf\Lib\Abstracts,
  *
  * @subpackage Services
  */
-class Router extends Abstracts\Service implements Interfaces\Services\Router
+class Router extends Abstracts\Mountable implements Interfaces\Services\Router
 {
 	/**
 	 * Routes available on current context
@@ -38,35 +38,17 @@ class Router extends Abstracts\Service implements Interfaces\Services\Router
 	 */
 	protected function defineRoutes(): array
 	{
-		switch ( true ) {
-			case is_front_page() && ! is_home():
-				$routes = [ 'single', 'frontpage' ];
-				break;
-			case is_home():
-				$routes = [ 'archive', 'blog' ];
-				break;
-			case is_search():
-				$routes = [ 'archive', 'search' ];
-				break;
-			case is_archive():
-				$routes = [ 'archive' ];
-				break;
-			case is_singular():
-				$routes = [ 'single' ];
-				break;
-			case is_404():
-				$routes = [ '404' ];
-				break;
-			case is_login():
-				$routes = [ 'login' ];
-				break;
-			case is_admin():
-				$routes = [ 'admin' ];
-				break;
-			default:
-				$routes = [];
-				break;
-		}
+		$routes = match( true ) {
+			is_front_page() && ! is_home() => [ 'single', 'frontpage' ],
+			is_home() => [ 'archive', 'blog' ],
+			is_search() => [ 'archive', 'search' ],
+			is_archive() => [ 'archive' ],
+			is_singular() => [ 'single' ],
+			is_404() => [ '404' ],
+			is_login() => [ 'login' ],
+			is_admin() => [ 'admin' ],
+			default => []
+		};
 		return array_reverse( apply_filters( "{$this->package}_routes", $routes ) );
 	}
 	/**
@@ -84,25 +66,17 @@ class Router extends Abstracts\Service implements Interfaces\Services\Router
 	/**
 	 * Get routes via filter
 	 *
-	 * @param string|array<string> $default_routes : routes to prepend to the list.
+	 * @param array<string> $default_routes : routes to prepend to the list.
 	 *
 	 * @return array<string>
 	 */
-	public function getRoutesByFilter( string|array $default_routes = [] ): array
+	public function getRoutesByFilter( array $default_routes = [] ): array
 	{
 		$routes = $this->getRoutes();
 
-		switch ( true ) {
-			case is_array( $default_routes ):
-				$routes = array_merge( $default_routes, $routes );
-				break;
-			case is_string( $default_routes ) && ! empty( $default_routes ):
-				array_unshift( $routes, $default_routes );
-				break;
-			default:
-				break;
-		}
-		return $routes;
+		return ! empty( $default_routes ) 
+			? array_merge( $default_routes, $this->getRoutes() )
+			: $this->getRoutes();
 	}
 	/**
 	 * Setter for $route
@@ -112,16 +86,32 @@ class Router extends Abstracts\Service implements Interfaces\Services\Router
 	public function loadRoute(): void
 	{
 		foreach ( $this->getRoutes() as $route ) {
-			$alias = 'route.' . strtolower( $route );
-
-			$has_route = apply_filters( "{$this->package}_has_route", false, $alias );
-
-			if ( ! $this->routeHasLoaded() && $has_route ) {
-				do_action( "{$this->package}_load_route", $alias, $route );
-			}
-
-			do_action( "{$this->package}_route_{$route}", $alias );
+			$this->loadSingleRoute( $route );
 		}
+		/**
+		 * Final check to load frontend if nothing has loaded at this point
+		 */
+		if ( ! $this->routeHasLoaded() && ! is_admin() && ! wp_doing_ajax() && ! wp_doing_cron() ) {
+			$this->loadSingleRoute( 'frontend' );
+		}
+	}
+	/**
+	 * Load a singular route
+	 *
+	 * @param string $route : string route name.
+	 *
+	 * @return void
+	 */
+	protected function loadSingleRoute( string $route ): void
+	{
+		$alias = 'route.' . strtolower( $route );
+
+		$has_route = apply_filters( "{$this->package}_has_route", false, $alias );
+
+		if ( ! $this->routeHasLoaded() && $has_route ) {
+			do_action( "{$this->package}_load_route", $alias, $route );
+		}
+		do_action( "{$this->package}_route_{$route}", $alias );
 	}
 	/**
 	 * Determine if a route has already been loaded

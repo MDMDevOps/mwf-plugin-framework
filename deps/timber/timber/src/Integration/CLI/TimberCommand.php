@@ -3,8 +3,8 @@
 namespace Mwf\Lib\Deps\Timber\Integration\CLI;
 
 use Mwf\Lib\Deps\Timber\Cache\Cleaner;
-use WP_CLI;
-use WP_CLI_Command;
+use Mwf\Lib\Deps\WP_CLI;
+use Mwf\Lib\Deps\WP_CLI_Command;
 if (!\class_exists('Mwf\\Lib\\Deps\\WP_CLI_Command')) {
     return;
 }

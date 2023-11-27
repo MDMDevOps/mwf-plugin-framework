@@ -3,7 +3,7 @@
 namespace Mwf\Lib\Deps\Timber\Integration;
 
 use Mwf\Lib\Deps\Timber\Integration\CLI\TimberCommand;
-use WP_CLI;
+use Mwf\Lib\Deps\WP_CLI;
 /**
  * Class WpCliIntegration
  *

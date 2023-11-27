@@ -5,7 +5,7 @@
  * @package App
  *
  * @wordpress-plugin
- * Plugin Name: MWF Plugin Framework
+ * Plugin Name: _Boilerplate
  * Plugin URI:  https://midwestfamilymadison.com
  * Description: Custom functions by Mid-West Family Madison
  * Version:     1.0.0
@@ -28,6 +28,6 @@ defined( 'ABSPATH' ) || exit;
 require_once trailingslashit( plugin_dir_path( __FILE__ ) ) . 'vendor/autoload.php';
 require_once trailingslashit( plugin_dir_path( __FILE__ ) ) . 'deps/autoload.php';
 
-$mwf_wp_lib = new Main( 'mwf_wp_lib', __FILE__ );
+$mwf_wp_lib = new Main( 'boilerplate', __FILE__ );
 
-$mwf_wp_lib->load();
+$mwf_wp_lib->mount();

@@ -23,7 +23,7 @@ use Mwf\Lib\DI\ContainerBuilder,
  *
  * @subpackage Controllers
  */
-class Dispatchers extends Abstracts\Controller
+class Dispatchers extends Abstracts\Mountable implements Interfaces\Controller
 {
 	/**
 	 * Get definitions that should be added to the service container
@@ -36,12 +36,12 @@ class Dispatchers extends Abstracts\Controller
 			/**
 			 * Class Aliases
 			 */
-			Dispatcher\Styles::class => ContainerBuilder::autowire(),
-			Dispatcher\Scripts::class => ContainerBuilder::autowire(),
+			Dispatcher\Styles::class              => ContainerBuilder::autowire(),
+			Dispatcher\Scripts::class             => ContainerBuilder::autowire(),
 			/**
 			 * Interfaces
 			 */
-			Interfaces\Dispatchers\Styles::class => ContainerBuilder::get( Dispatcher\Styles::class ),
+			Interfaces\Dispatchers\Styles::class  => ContainerBuilder::get( Dispatcher\Styles::class ),
 			Interfaces\Dispatchers\Scripts::class => ContainerBuilder::get( Dispatcher\Scripts::class ),
 
 		];

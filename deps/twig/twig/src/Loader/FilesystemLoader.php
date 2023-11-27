@@ -32,7 +32,7 @@ class FilesystemLoader implements LoaderInterface
      */
     public function __construct($paths = [], string $rootPath = null)
     {
-        $this->rootPath = (null === $rootPath ? \getcwd() : $rootPath) . \DIRECTORY_SEPARATOR;
+        $this->rootPath = ($rootPath ?? \getcwd()) . \DIRECTORY_SEPARATOR;
         if (null !== $rootPath && \false !== ($realPath = \realpath($rootPath))) {
             $this->rootPath = $realPath . \DIRECTORY_SEPARATOR;
         }
@@ -203,7 +203,7 @@ class FilesystemLoader implements LoaderInterface
     }
     private function validateName(string $name) : void
     {
-        if (\false !== \strpos($name, "\x00")) {
+        if (\str_contains($name, "\x00")) {
             throw new LoaderError('A template name cannot contain NUL bytes.');
         }
         $name = \ltrim($name, '/');

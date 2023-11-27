@@ -11,7 +11,7 @@
  * @since   1.0.0
  */
 
-namespace Mwf\Lib\Traits;
+namespace Mwf\Lib\Traits\Handlers;
 
 use Mwf\Lib\Deps\DI\Attribute\Inject;
 
@@ -22,7 +22,7 @@ use Mwf\Lib\Deps\DI\Attribute\Inject;
  *
  * @subpackage Traits
  */
-trait UrlHandler
+trait Url
 {
 	/**
 	 * URL to plugin instance
@@ -34,15 +34,14 @@ trait UrlHandler
 	 * Set the base URL
 	 * Can include an additional string for appending to the URL of the plugin
 	 *
-	 * @param string $root : root directory to use, default plugin root.
-	 * @param string $append : string to append to base URL.
+	 * @param string $url : root directory to use.
 	 *
 	 * @return void
 	 */
 	#[Inject]
-	public function setUrl( #[Inject( 'app.url' )] string $root, string $append = '' ): void
+	public function setUrl( #[Inject( 'app.url' )] string $url ): void
 	{
-			$this->url = $this->appendUrl( $root, $append );
+		$this->url = $this->appendUrl( $url );
 	}
 	/**
 	 * Get the url with string appended

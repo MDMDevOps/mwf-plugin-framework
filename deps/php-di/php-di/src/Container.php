@@ -41,19 +41,19 @@ class Container implements ContainerInterface, FactoryInterface, InvokerInterfac
      * Map of entries that are already resolved.
      */
     protected array $resolvedEntries = [];
-    private MutableDefinitionSource $definitionSource;
-    private DefinitionResolver $definitionResolver;
+    protected MutableDefinitionSource $definitionSource;
+    protected DefinitionResolver $definitionResolver;
     /**
      * Map of definitions that are already fetched (local cache).
      *
      * @var array<Definition|null>
      */
-    private array $fetchedDefinitions = [];
+    protected array $fetchedDefinitions = [];
     /**
      * Array of entries being resolved. Used to avoid circular dependencies and infinite loops.
      */
     protected array $entriesBeingResolved = [];
-    private ?InvokerInterface $invoker = null;
+    protected ?InvokerInterface $invoker = null;
     /**
      * Container that wraps this container. If none, points to $this.
      */
@@ -112,7 +112,7 @@ class Container implements ContainerInterface, FactoryInterface, InvokerInterfac
         $this->resolvedEntries[$id] = $value;
         return $value;
     }
-    private function getDefinition(string $name) : ?Definition
+    protected function getDefinition(string $name) : ?Definition
     {
         // Local cache that avoids fetching the same definition twice
         if (!\array_key_exists($name, $this->fetchedDefinitions)) {
@@ -255,7 +255,7 @@ class Container implements ContainerInterface, FactoryInterface, InvokerInterfac
     /**
      * Get formatted entry type.
      */
-    private function getEntryType(mixed $entry) : string
+    protected function getEntryType(mixed $entry) : string
     {
         if (\is_object($entry)) {
             return \sprintf("Object (\n    class = %s\n)", $entry::class);
@@ -278,7 +278,7 @@ class Container implements ContainerInterface, FactoryInterface, InvokerInterfac
      *
      * @throws DependencyException Error while resolving the entry.
      */
-    private function resolveDefinition(Definition $definition, array $parameters = []) : mixed
+    protected function resolveDefinition(Definition $definition, array $parameters = []) : mixed
     {
         $entryName = $definition->getName();
         // Check if we are already getting this entry -> circular dependency
@@ -304,7 +304,7 @@ class Container implements ContainerInterface, FactoryInterface, InvokerInterfac
         // Completely clear this local cache
         $this->definitionSource->addDefinition($definition);
     }
-    private function getInvoker() : InvokerInterface
+    protected function getInvoker() : InvokerInterface
     {
         if (!$this->invoker) {
             $parameterResolver = new ResolverChain([new DefinitionParameterResolver($this->definitionResolver), new NumericArrayResolver(), new AssociativeArrayResolver(), new DefaultValueResolver(), new TypeHintContainerResolver($this->delegateContainer)]);
@@ -312,7 +312,7 @@ class Container implements ContainerInterface, FactoryInterface, InvokerInterfac
         }
         return $this->invoker;
     }
-    private function createDefaultDefinitionSource(array $definitions) : SourceChain
+    protected function createDefaultDefinitionSource(array $definitions) : SourceChain
     {
         $autowiring = new ReflectionBasedAutowiring();
         $source = new SourceChain([$autowiring]);

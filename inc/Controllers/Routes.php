@@ -23,17 +23,8 @@ use Mwf\Lib\DI\ContainerBuilder,
  *
  * @subpackage Controllers
  */
-class Routes extends Abstracts\Controller
+class Routes extends Abstracts\Mountable implements Interfaces\Controller
 {
-	/**
-	 * Construct new instance of the controller
-	 *
-	 * @param Interfaces\Services\Router $router : Instance of Services Router.
-	 */
-	public function __construct( protected Interfaces\Services\Router $router )
-	{
-		parent::__construct();
-	}
 	/**
 	 * Get definitions that should be added to the service container
 	 *
@@ -46,44 +37,5 @@ class Routes extends Abstracts\Controller
 			'route.admin'    => ContainerBuilder::autowire( Route\Frontend::class ),
 			'route.login'    => ContainerBuilder::autowire( Route\Frontend::class ),
 		];
-	}
-	/**
-	 * Actions to perform when the class is loaded
-	 *
-	 * @return void
-	 */
-	public function onLoad(): void
-	{
-		add_action( 'wp', [ $this, 'loadRoute' ] );
-		add_action( 'admin_init', [ $this, 'loadRoute' ] );
-		add_action( 'login_init', [ $this, 'loadRoute' ] );
-	}
-	/**
-	 * Load route specific classes
-	 *
-	 * @return void
-	 */
-	public function loadRoute(): void
-	{
-		foreach ( $this->router->getRoutes() as $route ) {
-			$alias = 'route.' . strtolower( $route );
-
-			$has_route = apply_filters( "{$this->package}_has_route", false, $alias );
-
-			if ( ! $this->routeHasLoaded() && $has_route ) {
-				do_action( "{$this->package}_load_route", $alias, $route );
-			}
-
-			do_action( "{$this->package}_route_{$route}", $alias );
-		}
-	}
-	/**
-	 * Determine if a route has already been loaded
-	 *
-	 * @return int
-	 */
-	public function routeHasLoaded(): int
-	{
-		return did_action( "{$this->package}_load_route" );
 	}
 }

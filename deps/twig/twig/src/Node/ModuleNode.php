@@ -84,7 +84,7 @@ final class ModuleNode extends Node
     {
         $compiler->write("\n\n");
         if (!$this->getAttribute('index')) {
-            $compiler->write("use Mwf\Lib\Deps\\Twig\\Environment;\n")->write("use Mwf\Lib\Deps\\Twig\\Error\\LoaderError;\n")->write("use Mwf\Lib\Deps\\Twig\\Error\\RuntimeError;\n")->write("use Mwf\Lib\Deps\\Twig\\Extension\\SandboxExtension;\n")->write("use Mwf\Lib\Deps\\Twig\\Markup;\n")->write("use Mwf\Lib\Deps\\Twig\\Sandbox\\SecurityError;\n")->write("use Mwf\Lib\Deps\\Twig\\Sandbox\\SecurityNotAllowedTagError;\n")->write("use Mwf\Lib\Deps\\Twig\\Sandbox\\SecurityNotAllowedFilterError;\n")->write("use Mwf\Lib\Deps\\Twig\\Sandbox\\SecurityNotAllowedFunctionError;\n")->write("use Mwf\Lib\Deps\\Twig\\Source;\n")->write("use Mwf\Lib\Deps\\Twig\\Template;\n\n use function Mwf\Lib\Deps\\twig_escape_filter; \n\n");
+            $compiler->write("use Twig\\Environment;\n")->write("use Twig\\Error\\LoaderError;\n")->write("use Twig\\Error\\RuntimeError;\n")->write("use Twig\\Extension\\SandboxExtension;\n")->write("use Twig\\Markup;\n")->write("use Twig\\Sandbox\\SecurityError;\n")->write("use Twig\\Sandbox\\SecurityNotAllowedTagError;\n")->write("use Twig\\Sandbox\\SecurityNotAllowedFilterError;\n")->write("use Twig\\Sandbox\\SecurityNotAllowedFunctionError;\n")->write("use Twig\\Source;\n")->write("use Twig\\Template;\n\n");
         }
         $compiler->write('/* ' . \str_replace('*/', '* /', $this->getSourceContext()->getName()) . " */\n")->write('class ' . $compiler->getEnvironment()->getTemplateClass($this->getSourceContext()->getName(), $this->getAttribute('index')))->raw(" extends Template\n")->write("{\n")->indent()->write("private \$source;\n")->write("private \$macros = [];\n\n");
     }
@@ -156,7 +156,7 @@ final class ModuleNode extends Node
     }
     protected function compileGetTemplateName(Compiler $compiler)
     {
-        $compiler->write("public function getTemplateName()\n", "{\n")->indent()->write('return ')->repr($this->getSourceContext()->getName())->raw(";\n")->outdent()->write("}\n\n");
+        $compiler->write("/**\n")->write(" * @codeCoverageIgnore\n")->write(" */\n")->write("public function getTemplateName()\n", "{\n")->indent()->write('return ')->repr($this->getSourceContext()->getName())->raw(";\n")->outdent()->write("}\n\n");
     }
     protected function compileIsTraitable(Compiler $compiler)
     {
@@ -194,11 +194,11 @@ final class ModuleNode extends Node
         if ($traitable) {
             return;
         }
-        $compiler->write("public function isTraitable()\n", "{\n")->indent()->write(\sprintf("return %s;\n", $traitable ? 'true' : 'false'))->outdent()->write("}\n\n");
+        $compiler->write("/**\n")->write(" * @codeCoverageIgnore\n")->write(" */\n")->write("public function isTraitable()\n", "{\n")->indent()->write(\sprintf("return %s;\n", $traitable ? 'true' : 'false'))->outdent()->write("}\n\n");
     }
     protected function compileDebugInfo(Compiler $compiler)
     {
-        $compiler->write("public function getDebugInfo()\n", "{\n")->indent()->write(\sprintf("return %s;\n", \str_replace("\n", '', \var_export(\array_reverse($compiler->getDebugInfo(), \true), \true))))->outdent()->write("}\n\n");
+        $compiler->write("/**\n")->write(" * @codeCoverageIgnore\n")->write(" */\n")->write("public function getDebugInfo()\n", "{\n")->indent()->write(\sprintf("return %s;\n", \str_replace("\n", '', \var_export(\array_reverse($compiler->getDebugInfo(), \true), \true))))->outdent()->write("}\n\n");
     }
     protected function compileGetSourceContext(Compiler $compiler)
     {
