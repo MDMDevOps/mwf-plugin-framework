@@ -22,7 +22,13 @@ class Factory
 {
     public static function create( string $class, string $package = '', string $root_file = '' ) {
         require_once trailingslashit( dirname( __DIR__, 1 ) ) . 'deps/autoload.php';
+        
         $app = new $class( $package, $root_file );
-        $app->load();
+        
+        if ( is_subclass_of( $app, Main::class ) ) {
+            $app->mount();
+        }
+        
+        return $app;
     }
 }
