@@ -128,7 +128,7 @@ final class Container extends DI\Container
 		 * Sort by priority 
 		 */
 		usort( $callables, function( OnMount $a, OnMount $b ) {
-			return $a->getPriority() > $b->getPriority();
+			return $a->getPriority() > $b->getPriority() ? 1 : 0;
 		} );
 		/**
 		 * Fire callables
