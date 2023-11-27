@@ -106,7 +106,7 @@ class Styles extends Abstracts\Mountable implements
 		/**
 		 * Get full file path
 		 */
-		$file = $this->dir( "{$this->asset_dir}/{$path}" );
+		$file = $this->dir( $path );
 		/**
 		 * Bail if local file, but empty
 		 */
@@ -121,7 +121,7 @@ class Styles extends Abstracts\Mountable implements
 
 			$handle = str_replace( [ '/', '\\', ' ' ], '-', $this->package ) . '-' . $handle;
 
-			$path = $this->url( "{$this->asset_dir}/{$path}" );
+			$path = $this->url( $path );
 		}
 
 		$valid = str_starts_with( $path, '//' )
