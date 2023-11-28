@@ -5,7 +5,7 @@ namespace Mwf\Lib\Deps\Timber;
 use ArrayObject;
 use JsonSerializable;
 use ReturnTypeWillChange;
-use Mwf\Lib\Deps\WP_Post;
+use WP_Post;
 /**
  * PostArrayObject class for dealing with arbitrary collections of Posts
  * (typically not wrapping a `WP_Query` directly, which is what `Timber\PostQuery` does).

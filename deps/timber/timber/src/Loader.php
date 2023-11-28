@@ -244,7 +244,7 @@ class Loader
     public function get_twig()
     {
         // Default options.
-        $environment_options = ['debug' => WP_DEBUG, 'autoescape' => \false, 'cache' => \false];
+        $environment_options = ['debug' => \WP_DEBUG, 'autoescape' => \false, 'cache' => \false];
         /**
          * Filters the environment options that are used when creating a Twig Environment instance.
          *
@@ -333,7 +333,7 @@ class Loader
             $environment_options['cache'] = $twig_cache_loc;
         }
         $twig = new \Mwf\Lib\Deps\Twig\Environment($this->get_loader(), $environment_options);
-        if (WP_DEBUG) {
+        if (\WP_DEBUG) {
             $twig->addExtension(new \Mwf\Lib\Deps\Twig\Extension\DebugExtension());
         } else {
             $twig->addFunction(new TwigFunction('dump', function () {

@@ -1,7 +1,6 @@
+!readme.md
 # ignore all files that start with ~
 ~*
-# Flywheel stuff
-.fw-config.php
 # Hidden files
 *.DS_Store
 *Thumbs.db
@@ -23,7 +22,6 @@
 ######################
 *.log
 *.sql
-error_log
 # Generated files #
 ######################
 .DS_Store*
@@ -39,7 +37,6 @@ Thumbs.db
 *.idea
 *.sublime-project
 *.sublime-workspace
-settings.json
 # codekit #
 ##########
 config.codekit
@@ -47,10 +44,8 @@ config.codekit
 # dev dependencies #
 ####################
 node_modules
-lib
 vendor
 *-lock.json
 *.lock
-*hot-update*
 # Other #
 ####################

@@ -6,10 +6,10 @@ use Exception;
 use InvalidArgumentException;
 use stdClass;
 use Mwf\Lib\Deps\Timber\Factory\PostFactory;
-use Mwf\Lib\Deps\WP_List_Util;
-use Mwf\Lib\Deps\WP_Post;
-use Mwf\Lib\Deps\WP_Term;
-use Mwf\Lib\Deps\WP_User;
+use WP_List_Util;
+use WP_Post;
+use WP_Term;
+use WP_User;
 /**
  * Class Helper
  *
@@ -246,7 +246,7 @@ class Helper
     public static function error_log($error)
     {
         global $timber_disable_error_log;
-        if (!WP_DEBUG || $timber_disable_error_log) {
+        if (!\WP_DEBUG || $timber_disable_error_log) {
             return;
         }
         if (\is_object($error) || \is_array($error)) {
@@ -265,7 +265,7 @@ class Helper
      */
     public static function warn($message)
     {
-        if (!WP_DEBUG) {
+        if (!\WP_DEBUG) {
             return;
         }
         \trigger_error($message, \E_USER_WARNING);
@@ -301,7 +301,7 @@ class Helper
          * @param string $version  The version of WordPress where the message was added.
          */
         \do_action('doing_it_wrong_run', $function, $message, $version);
-        if (!WP_DEBUG) {
+        if (!\WP_DEBUG) {
             return;
         }
         /**
@@ -356,7 +356,7 @@ class Helper
          * @param string $version     The version of Timber where the message was added.
          */
         \do_action('deprecated_function_run', $function, $replacement, $version);
-        if (!WP_DEBUG) {
+        if (!\WP_DEBUG) {
             return;
         }
         /**

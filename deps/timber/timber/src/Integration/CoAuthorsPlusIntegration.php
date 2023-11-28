@@ -4,7 +4,7 @@ namespace Mwf\Lib\Deps\Timber\Integration;
 
 use Mwf\Lib\Deps\CoAuthors_Plus;
 use Mwf\Lib\Deps\Timber\Integration\CoAuthorsPlus\CoAuthorsPlusUser;
-use Mwf\Lib\Deps\WP_User;
+use WP_User;
 /** @internal */
 class CoAuthorsPlusIntegration implements IntegrationInterface
 {

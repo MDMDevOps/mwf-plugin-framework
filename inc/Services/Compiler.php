@@ -66,19 +66,12 @@ class Compiler extends Abstracts\Mountable implements Interfaces\Services\Compil
 	 */
 	protected ?Environment $twig;
 	/**
-	 * Set the base directory - relative to the main plugin file
-	 *
-	 * Can include an additional string, to make it relative to a different file
-	 *
-	 * @param string $root : root path of the plugin.
-	 * @param string      $append : string to append to base directory path.
-	 *
-	 * @return void
+	 * Constructor
+	 * 
+	 * @param $views_dir : directory path to twig view files
 	 */
-	#[Inject]
-	public function setDir( #[Inject( 'views.dir' )] string $dir ): void
+	public function __construct( #[Inject( 'views.dir' )] public string $views_dir )
 	{
-		$this->dir = untrailingslashit( $dir );
 	}
 	/**
 	 * Add the 'post' to context, if not already present.
@@ -116,23 +109,28 @@ class Compiler extends Abstracts\Mountable implements Interfaces\Services\Compil
 		if ( empty( $this->template_locations ) ) {
 			$this->template_locations = array_map( [$this, 'filterTemplateLocations'], $locations );
 
-			$this->template_directory = apply_filters( 
-				"{$this->package}_template_directory",
-				$this->template_directory
+			$this->views_dir = apply_filters( 
+				"{$this->package}_views_directory",
+				$this->views_dir
 			);
 
-			$package_template_directories = array_unique(
-				[
-					trailingslashit( get_stylesheet_directory() . '/' . $this->template_directory ),
-					trailingslashit( get_template_directory() . '/' . $this->template_directory ),
+			$package_template_directories = [
+					trailingslashit( get_stylesheet_directory() . '/' . $this->views_dir ),
+					trailingslashit( get_template_directory() . '/' . $this->views_dir ),
 					trailingslashit( $this->dir() ),
-				]
-			);
-
-			$this->template_locations[ $this->package ] = apply_filters(
-				"{$this->package}_template_directories",
+			];
+			
+			$package_template_directories = apply_filters(
+				"{$this->package}_views_directories",
 				$package_template_directories
 			);
+
+			$this->template_locations[ $this->package ] = array_unique( array_filter( 
+				$package_template_directories, 
+				function( $dir ) {
+					return is_dir( $dir );
+				} 
+			) );
 		}
 
 		return $this->template_locations;

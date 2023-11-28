@@ -194,6 +194,6 @@ class LocationManager
     protected static function get_locations_open_basedir()
     {
         $open_basedir = \ini_get('open_basedir');
-        return [Loader::MAIN_NAMESPACE => [$open_basedir ? ABSPATH : '/']];
+        return [Loader::MAIN_NAMESPACE => [$open_basedir ? \ABSPATH : '/']];
     }
 }

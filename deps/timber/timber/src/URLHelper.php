@@ -156,7 +156,7 @@ class URLHelper
      */
     public static function get_full_path($src)
     {
-        $root = ABSPATH;
+        $root = \ABSPATH;
         $old_root_path = $root . $src;
         $old_root_path = \str_replace('//', '/', $old_root_path);
         return $old_root_path;
@@ -193,7 +193,7 @@ class URLHelper
          * @deprecated 2.0.0, use `timber/url_helper/url_to_file_system/path`
          */
         $url_parts['path'] = \apply_filters_deprecated('timber/URLHelper/url_to_file_system/path', [$url_parts['path']], '2.0.0', 'timber/url_helper/url_to_file_system/path');
-        $path = ABSPATH . $url_parts['path'];
+        $path = \ABSPATH . $url_parts['path'];
         $path = \str_replace('//', '/', $path);
         return $path;
     }
@@ -264,11 +264,11 @@ class URLHelper
      */
     public static function get_rel_path($src)
     {
-        if (\str_contains($src, ABSPATH)) {
-            return \str_replace(ABSPATH, '', $src);
+        if (\str_contains($src, \ABSPATH)) {
+            return \str_replace(\ABSPATH, '', $src);
         }
         // its outside the WordPress directory, alternate setups:
-        $src = \str_replace(WP_CONTENT_DIR, '', $src);
+        $src = \str_replace(\WP_CONTENT_DIR, '', $src);
         return self::get_content_subdir() . $src;
     }
     /**

@@ -6,7 +6,7 @@ use Imagick;
 use Mwf\Lib\Deps\Timber\Helper;
 use Mwf\Lib\Deps\Timber\Image\Operation as ImageOperation;
 use Mwf\Lib\Deps\Timber\ImageHelper;
-use Mwf\Lib\Deps\WP_Image_Editor;
+use WP_Image_Editor;
 /**
  * Changes image to new size, by shrinking/enlarging
  * then cropping to respect new ratio.
