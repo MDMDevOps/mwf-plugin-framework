@@ -1,15 +1,212 @@
 <?php
 
+declare(strict_types=1);
+
+use Isolated\Symfony\Component\Finder\Finder;
+
+class TwigPrefixer
+{
+    public function endsWith(string $haystack, string $needle): bool
+    {
+        $length = strlen($needle);
+
+        if (0 === $length) {
+            return true;
+        }
+
+        return (substr($haystack, -$length) === $needle);
+    }
+
+    public function getPrefix(): string
+    {
+        // fixme
+        return "Mwf\\Lib\\Deps";
+    }
+
+    public function getFormattedPrefix(
+        int $backslashDuplicationFactor = 0,
+        bool $includeInitialBackslash = true
+    ): string {
+        $prefix = $this->getPrefix();
+
+        if ($includeInitialBackslash) {
+            $prefix = '\\' . $prefix;
+        }
+
+        for ($i = 0; $i < $backslashDuplicationFactor; $i++) {
+            $prefix = str_replace('\\', '\\\\', $prefix);
+        }
+
+        return $prefix;
+    }
+
+    public function patchForAll(string $contents): string
+    {
+        // Hardcoded class names in code
+        $contents = preg_replace(
+            '/("|\')((\\\\){1,2}Twig(\\\\){1,2}[A-Za-z\\\\]+)\1/m',
+            '$1' . $this->getFormattedPrefix(2) . '$2$1',
+            $contents
+        );
+
+        // Hardcoded "use" statements
+        $contents = preg_replace(
+            '/use\s+(Twig)(\\\\){1,2}/m',
+            'use ' . $this->getFormattedPrefix(2) . '\\\\\\\\Twig\\\\\\\\',
+            $contents
+        );
+
+        // Add namespaces to generated Twig template names
+        $contents = preg_replace(
+            '/(\'|")(__TwigTemplate_)\1/m',
+            '$1' . $this->getFormattedPrefix(2) . '\\\\\\\\$2$1',
+            $contents
+        );
+
+        return $contents;
+    }
+
+    public function patchForModuleNode(string $contents, string $filePath): string
+    {
+        if (!$this->endsWith(
+            $filePath,
+            'src' . DIRECTORY_SEPARATOR . 'Node' . DIRECTORY_SEPARATOR . 'ModuleNode.php'
+        )) {
+            return $contents;
+        }
+
+        // Fix template compilation - add the namespace to the template file.
+        // _custom, originally was 1 for backslashDuplicationFactor, it caused issues e.g. 'org\some\vendor' with the '\v' case
+        $contents = preg_replace(
+            '/(compileClassHeader\s*\([^\)]+\)\s*{\s*\s*\$compiler\s*->\s*write\s*\(\s*)"\\\\n\\\\n"(\s*\)\s*;)/m',
+            '$1"\\n\\nnamespace ' . $this->getFormattedPrefix(2, false) . ';\\n\\n"$2',
+            $contents
+        );
+
+        // When generating the PHP template, make sure its class declaration doesn't contain the namespace.
+// That's the only place where we don't want to have it.
+        $string_to_remove = $this->getFormattedPrefix() . '\\';
+        $contents = preg_replace(
+            '/(->write\s*\(\s*\'class \'\s*\.\s*)(\$compiler\s*->\s*getEnvironment\s*\(\s*\)\s*->\s*getTemplateClass\s*\(\s*\$this\s*->\s*getSourceContext\s*\(\s*\)\s*->\s*getName\s*\(\s*\)\s*,\s*\$this\s*->\s*getAttribute\s*\(\s*\'index\'\s*\)\s*\))/m',
+            '$1 \\substr( $2, ' . strlen($string_to_remove) . ' ) ',
+            $contents
+        );
+
+        return $contents;
+    }
+
+    public function patchForCoreExtension(string $contents, string $filePath): string
+    {
+        // Fix the usage of global twig_* and _twig_* functions.
+        if (!$this->endsWith(
+            $filePath,
+            'src' . DIRECTORY_SEPARATOR . 'Extension' . DIRECTORY_SEPARATOR . 'CoreExtension.php'
+        )) {
+            return $contents;
+        }
+
+        $contents = preg_replace(
+            '/(TwigFilter\(\s*\'[^\']+\'\s*,\s*\')((_)?twig_[^\']+\')/m',
+            '$1' . $this->getFormattedPrefix(2) . '\\\\\\\\$2',
+            $contents
+        );
+
+        // Handle the occurrence in the is_safe_callback array element.
+        $contents = preg_replace(
+            '/(new ' . $this->getFormattedPrefix(
+                1
+            ) . '\\\\Twig\\\\TwigFilter\(\s*\'[^\']+\'\s*,\s*\'.*twig_[^\']+\',\s*\[[^\]]*,\s*\'is_safe_callback\'\s*=>\s*\')((_)?twig_[^\']+\'\s*\]\s*\))/m',
+            '$1' . $this->getFormattedPrefix(2) . '\\\\\\\\$2',
+            $contents
+        );
+
+        // Handle the occurrence in the preg_replace_callback.
+        $contents = preg_replace(
+            '/(preg_replace_callback.*,\s*\')(.+\'.*;)/m',
+            '$1' . $this->getFormattedPrefix(2) . '\\\\\\\\$2',
+            $contents
+        );
+
+        // Handle the occurrence in the array_walk_recursive.
+        $contents = preg_replace(
+            '/(array_walk_recursive.*,\s*\')(.+\'.*;)/m',
+            '$1' . $this->getFormattedPrefix(2) . '\\\\\\\\$2',
+            $contents
+        );
+
+        // remove the global call of local functions within the file
+        // \twig_convert_encoding( => twig_convert_encoding(
+        preg_match_all('/function ([_]*twig_[a-z-_]+)\(/', $contents, $twigFunctions, PREG_SET_ORDER);
+
+        foreach ($twigFunctions as $twigFunction) {
+            $twigFunctionName = $twigFunction[1];
+
+            $contents = str_replace('\\' . $twigFunctionName . '(', $twigFunctionName . '(', $contents);
+        }
+
+        return $contents;
+    }
+
+    public function patchForEnvironment(string $contents, string $filePath): string
+    {
+        // Fix the usage of Twig\\Extension\\AbstractExtension.
+        if (!$this->endsWith($filePath, 'src' . DIRECTORY_SEPARATOR . 'Environment.php')) {
+            return $contents;
+        }
+
+        $contents = preg_replace(
+            '/(Twig\\\\.+\\\\AbstractExtension)/m',
+            $this->getFormattedPrefix(2, false) . '\\\\\\\\$1',
+            $contents
+        );
+
+        return $contents;
+    }
+
+}
+
+$twigPrefixer = new TwigPrefixer();
+
+
 function customize_php_scoper_config( array $config ): array
 {
     $wpify = include dirname(__DIR__, 1) . '/vendor/wpify/scoper/symbols/wordpress.php';
 
     $config[ 'exclude-functions' ] = $wpify[ 'expose-functions' ];
-//    $config[ 'exclude-constants' ] = $wpify[ 'expose-constants' ];
+    $config[ 'exclude-constants' ] = $wpify[ 'expose-constants' ];
     $config[ 'exclude-classes' ] = $wpify[ 'expose-classes' ];
-//    $config[ 'exclude-namespaces' ] = $wpify[ 'expose-namespaces' ];
+    $config[ 'exclude-namespaces' ] = $wpify[ 'expose-namespaces' ];
+
+	$twigPrefixer = new TwigPrefixer();
 
     $config['patchers'] = [
+		/**
+		 * Patcher for all files.
+		 */
+		static function (string $filePath, string $prefix, string $contents) use ($twigPrefixer): string {
+			return $twigPrefixer->patchForAll($contents);
+		},
+
+		/**
+		 * Patcher for \$prefix\Twig\Node\ModuleNode.
+		 */
+		static function (string $filePath, string $prefix, string $contents) use ($twigPrefixer): string {
+			return $twigPrefixer->patchForModuleNode($contents, $filePath);
+		},
+
+		/**
+		 * Patcher for \$prefix\Twig\Extension\CoreExtension.
+		 */
+		static function (string $filePath, string $prefix, string $contents) use ($twigPrefixer): string {
+			return $twigPrefixer->patchForCoreExtension($contents, $filePath);
+		},
+
+		/**
+		 * Patcher for \$prefix\Twig\Environment.
+		 */
+		static function (string $filePath, string $prefix, string $contents) use ($twigPrefixer): string {
+			return $twigPrefixer->patchForEnvironment($contents, $filePath);
+		},
         static function (string $filePath, string $prefix, string $content): string {
             if (str_contains( strtolower( $filePath ), strtolower( "source/vendor/php-di/php-di/src/Container.php" ) ) ) {
                 $content = str_replace( 'private', 'protected', $content );

@@ -58,7 +58,7 @@ class Environment
     private $resolvedGlobals;
     private $loadedTemplates;
     private $strictVariables;
-    private $templateClassPrefix = '__TwigTemplate_';
+    private $templateClassPrefix = '\\Mwf\\Lib\\Deps\\__TwigTemplate_';
     private $originalCache;
     private $extensionSet;
     private $runtimeLoaders = [];

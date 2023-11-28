@@ -22,7 +22,7 @@ final class TemplateWrapper
     private $template;
     /**
      * This method is for internal use only and should never be called
-     * directly (use Twig\Environment::load() instead).
+     * directly (use \\Mwf\\Lib\\Deps\\Twig\\Environment::load() instead).
      *
      * @internal
      */

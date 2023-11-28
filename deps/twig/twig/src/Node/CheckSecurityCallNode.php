@@ -19,6 +19,6 @@ class CheckSecurityCallNode extends Node
 {
     public function compile(Compiler $compiler)
     {
-        $compiler->write("\$this->sandbox = \$this->env->getExtension('\\Twig\\Extension\\SandboxExtension');\n")->write("\$this->checkSecurity();\n");
+        $compiler->write("\$this->sandbox = \$this->env->getExtension('\\Mwf\\Lib\\Deps\\Twig\\Extension\\SandboxExtension');\n")->write("\$this->checkSecurity();\n");
     }
 }

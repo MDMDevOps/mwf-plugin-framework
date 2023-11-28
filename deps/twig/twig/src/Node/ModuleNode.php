@@ -82,11 +82,11 @@ final class ModuleNode extends Node
     }
     protected function compileClassHeader(Compiler $compiler)
     {
-        $compiler->write("\n\n");
+        $compiler->write("\n\nnamespace Mwf\\Lib\\Deps;\n\n");
         if (!$this->getAttribute('index')) {
-            $compiler->write("use Twig\\Environment;\n")->write("use Twig\\Error\\LoaderError;\n")->write("use Twig\\Error\\RuntimeError;\n")->write("use Twig\\Extension\\SandboxExtension;\n")->write("use Twig\\Markup;\n")->write("use Twig\\Sandbox\\SecurityError;\n")->write("use Twig\\Sandbox\\SecurityNotAllowedTagError;\n")->write("use Twig\\Sandbox\\SecurityNotAllowedFilterError;\n")->write("use Twig\\Sandbox\\SecurityNotAllowedFunctionError;\n")->write("use Twig\\Source;\n")->write("use Twig\\Template;\n\n");
+            $compiler->write("use \\Mwf\\Lib\\Deps\\Twig\\Environment;\n")->write("use \\Mwf\\Lib\\Deps\\Twig\\Error\\LoaderError;\n")->write("use \\Mwf\\Lib\\Deps\\Twig\\Error\\RuntimeError;\n")->write("use \\Mwf\\Lib\\Deps\\Twig\\Extension\\SandboxExtension;\n")->write("use \\Mwf\\Lib\\Deps\\Twig\\Markup;\n")->write("use \\Mwf\\Lib\\Deps\\Twig\\Sandbox\\SecurityError;\n")->write("use \\Mwf\\Lib\\Deps\\Twig\\Sandbox\\SecurityNotAllowedTagError;\n")->write("use \\Mwf\\Lib\\Deps\\Twig\\Sandbox\\SecurityNotAllowedFilterError;\n")->write("use \\Mwf\\Lib\\Deps\\Twig\\Sandbox\\SecurityNotAllowedFunctionError;\n")->write("use \\Mwf\\Lib\\Deps\\Twig\\Source;\n")->write("use \\Mwf\\Lib\\Deps\\Twig\\Template;\n\n");
         }
-        $compiler->write('/* ' . \str_replace('*/', '* /', $this->getSourceContext()->getName()) . " */\n")->write('class ' . $compiler->getEnvironment()->getTemplateClass($this->getSourceContext()->getName(), $this->getAttribute('index')))->raw(" extends Template\n")->write("{\n")->indent()->write("private \$source;\n")->write("private \$macros = [];\n\n");
+        $compiler->write('/* ' . \str_replace('*/', '* /', $this->getSourceContext()->getName()) . " */\n")->write('class ' .  \substr( $compiler->getEnvironment()->getTemplateClass($this->getSourceContext()->getName(), $this->getAttribute('index')), 14 ) )->raw(" extends Template\n")->write("{\n")->indent()->write("private \$source;\n")->write("private \$macros = [];\n\n");
     }
     protected function compileConstructor(Compiler $compiler)
     {

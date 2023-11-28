@@ -338,7 +338,7 @@ class ImageHelper
     public static function get_server_location($url)
     {
         // if we're already an absolute dir, just return.
-        if (0 === \strpos($url, ABSPATH)) {
+        if (0 === \strpos($url, \ABSPATH)) {
             return $url;
         }
         // otherwise, analyze URL then build mapping path
@@ -399,7 +399,7 @@ class ImageHelper
         }
         // Download file to temp location
         if (!\function_exists('download_url')) {
-            require_once ABSPATH . '/wp-admin/includes/file.php';
+            require_once \ABSPATH . '/wp-admin/includes/file.php';
         }
         $tmp = \download_url($file);
         \preg_match('/[^\\?]+\\.(jpe?g|jpe|gif|png)\\b/i', $file, $matches);
@@ -492,7 +492,7 @@ class ImageHelper
         ];
         $upload_dir = \wp_upload_dir();
         $tmp = $url;
-        if (\str_starts_with($tmp, ABSPATH) || \str_starts_with($tmp, '/srv/www/')) {
+        if (\str_starts_with($tmp, \ABSPATH) || \str_starts_with($tmp, '/srv/www/')) {
             // we've been given a dir, not an url
             $result['absolute'] = \true;
             if (\str_starts_with($tmp, $upload_dir['basedir'])) {
@@ -500,10 +500,10 @@ class ImageHelper
                 // upload based
                 $tmp = URLHelper::remove_url_component($tmp, $upload_dir['basedir']);
             }
-            if (\str_starts_with($tmp, WP_CONTENT_DIR)) {
+            if (\str_starts_with($tmp, \WP_CONTENT_DIR)) {
                 $result['base'] = self::BASE_CONTENT;
                 // content based
-                $tmp = URLHelper::remove_url_component($tmp, WP_CONTENT_DIR);
+                $tmp = URLHelper::remove_url_component($tmp, \WP_CONTENT_DIR);
             }
         } else {
             if (!$result['absolute']) {
@@ -517,7 +517,7 @@ class ImageHelper
                 $result['base'] = self::BASE_CONTENT;
                 // content-based
                 $tmp = self::theme_url_to_dir($tmp);
-                $tmp = URLHelper::remove_url_component($tmp, WP_CONTENT_DIR);
+                $tmp = URLHelper::remove_url_component($tmp, \WP_CONTENT_DIR);
             }
         }
         $parts = PathHelper::pathinfo($tmp);
@@ -632,7 +632,7 @@ class ImageHelper
             $path = $upload_dir['basedir'];
         } elseif (self::BASE_CONTENT == $base) {
             //it is in the content directory, somewhere else ...
-            $path = WP_CONTENT_DIR;
+            $path = \WP_CONTENT_DIR;
         }
         if (self::is_in_theme_dir(\trailingslashit($subdir) . $filename)) {
             //this is for weird installs when the theme folder is outside of /wp-content

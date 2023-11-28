@@ -92,7 +92,7 @@ class Timber
      */
     public static function init()
     {
-        if (!\defined('Mwf\\Lib\\Deps\\ABSPATH') || !\class_exists('\\WP') || \defined('Mwf\\Lib\\Deps\\TIMBER_LOADED')) {
+        if (!\defined('ABSPATH') || !\class_exists('\\WP') || \defined('Mwf\\Lib\\Deps\\TIMBER_LOADED')) {
             return;
         }
         $self = new self();
@@ -537,7 +537,7 @@ class Timber
             return self::get_attachment_by('url', URLHelper::file_system_to_url($ident));
         }
         if (empty($ident)) {
-            $field = URLHelper::starts_with($field_or_ident, ABSPATH) ? 'path' : 'url';
+            $field = URLHelper::starts_with($field_or_ident, \ABSPATH) ? 'path' : 'url';
             return self::get_attachment_by($field, $field_or_ident);
         }
         return null;
