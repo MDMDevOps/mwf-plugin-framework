@@ -5,7 +5,7 @@ namespace Mwf\Lib\Deps\Timber\Factory;
 use InvalidArgumentException;
 use Mwf\Lib\Deps\Timber\CoreInterface;
 use Mwf\Lib\Deps\Timber\Menu;
-use Mwf\Lib\Deps\WP_Term;
+use WP_Term;
 /**
  * Internal API class for instantiating Menus
  * @internal

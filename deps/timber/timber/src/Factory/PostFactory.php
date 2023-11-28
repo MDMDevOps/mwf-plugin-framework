@@ -11,8 +11,8 @@ use Mwf\Lib\Deps\Timber\PathHelper;
 use Mwf\Lib\Deps\Timber\Post;
 use Mwf\Lib\Deps\Timber\PostArrayObject;
 use Mwf\Lib\Deps\Timber\PostQuery;
-use Mwf\Lib\Deps\WP_Post;
-use Mwf\Lib\Deps\WP_Query;
+use WP_Post;
+use WP_Query;
 /**
  * Internal API class for instantiating posts
  * @internal

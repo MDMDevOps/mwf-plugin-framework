@@ -5,7 +5,7 @@ namespace Mwf\Lib\Deps\Timber;
 use SimpleXMLElement;
 use Mwf\Lib\Deps\Timber\Factory\PostFactory;
 use Mwf\Lib\Deps\Timber\Factory\UserFactory;
-use Mwf\Lib\Deps\WP_Post;
+use WP_Post;
 /**
  * Class Post
  *

@@ -6,10 +6,10 @@ use Exception;
 use InvalidArgumentException;
 use stdClass;
 use Mwf\Lib\Deps\Timber\Factory\PostFactory;
-use Mwf\Lib\Deps\WP_List_Util;
-use Mwf\Lib\Deps\WP_Post;
-use Mwf\Lib\Deps\WP_Term;
-use Mwf\Lib\Deps\WP_User;
+use WP_List_Util;
+use WP_Post;
+use WP_Term;
+use WP_User;
 /**
  * Class Helper
  *

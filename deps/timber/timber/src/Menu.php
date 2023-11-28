@@ -4,7 +4,7 @@ namespace Mwf\Lib\Deps\Timber;
 
 use Throwable;
 use Mwf\Lib\Deps\Timber\Factory\MenuItemFactory;
-use Mwf\Lib\Deps\WP_Term;
+use WP_Term;
 /**
  * Class Menu
  *

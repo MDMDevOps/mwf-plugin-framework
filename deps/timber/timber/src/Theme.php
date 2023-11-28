@@ -3,7 +3,7 @@
 namespace Mwf\Lib\Deps\Timber;
 
 use JsonSerializable;
-use Mwf\Lib\Deps\WP_Theme;
+use WP_Theme;
 /**
  * Class Theme
  *

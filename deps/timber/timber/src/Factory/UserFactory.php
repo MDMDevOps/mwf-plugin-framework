@@ -5,8 +5,8 @@ namespace Mwf\Lib\Deps\Timber\Factory;
 use InvalidArgumentException;
 use Mwf\Lib\Deps\Timber\CoreInterface;
 use Mwf\Lib\Deps\Timber\User;
-use Mwf\Lib\Deps\WP_User;
-use Mwf\Lib\Deps\WP_User_Query;
+use WP_User;
+use WP_User_Query;
 /**
  * Class UserFactory
  *

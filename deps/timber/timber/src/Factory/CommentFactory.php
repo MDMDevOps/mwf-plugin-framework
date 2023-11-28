@@ -5,8 +5,8 @@ namespace Mwf\Lib\Deps\Timber\Factory;
 use InvalidArgumentException;
 use Mwf\Lib\Deps\Timber\Comment;
 use Mwf\Lib\Deps\Timber\CoreInterface;
-use Mwf\Lib\Deps\WP_Comment;
-use Mwf\Lib\Deps\WP_Comment_Query;
+use WP_Comment;
+use WP_Comment_Query;
 /**
  * Internal API class for instantiating Comments
  * @internal

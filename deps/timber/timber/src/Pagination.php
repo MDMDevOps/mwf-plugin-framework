@@ -2,7 +2,7 @@
 
 namespace Mwf\Lib\Deps\Timber;
 
-use Mwf\Lib\Deps\WP_Query;
+use WP_Query;
 /**
  * Class Pagination
  *
