@@ -10,7 +10,6 @@
             "email": "bob.moore@midwestfamilymadison.com"
         }
     ],
-	"minimum-stability": "dev",
 	"prefer-stable": true,
 	"config": {
 		"optimize-autoloader" : false,

@@ -2,7 +2,7 @@
 
 namespace Mwf\Lib\Deps\Timber;
 
-use WP_User;
+use Mwf\Lib\Deps\WP_User;
 /**
  * Class User
  *

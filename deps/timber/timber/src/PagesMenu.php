@@ -3,7 +3,7 @@
 namespace Mwf\Lib\Deps\Timber;
 
 use stdClass;
-use WP_Post;
+use Mwf\Lib\Deps\WP_Post;
 /**
  * Class PagesMenu
  *

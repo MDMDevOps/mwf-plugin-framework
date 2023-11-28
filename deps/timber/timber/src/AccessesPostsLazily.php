@@ -4,7 +4,7 @@ namespace Mwf\Lib\Deps\Timber;
 
 use ReturnTypeWillChange;
 use Mwf\Lib\Deps\Timber\Factory\PostFactory;
-use WP_Post;
+use Mwf\Lib\Deps\WP_Post;
 /**
  * Trait implementing ArrayAccess::getOffset() using lazy instantiation.
  *

@@ -5,7 +5,7 @@ namespace Mwf\Lib\Deps\Timber;
 use stdClass;
 use Mwf\Lib\Deps\Timber\Factory\PostFactory;
 use Mwf\Lib\Deps\Timber\Factory\TermFactory;
-use WP_Post;
+use Mwf\Lib\Deps\WP_Post;
 /**
  * Class MenuItem
  *

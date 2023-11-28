@@ -5,7 +5,7 @@ namespace Mwf\Lib\Deps\Timber;
 use ArrayObject;
 use JsonSerializable;
 use ReturnTypeWillChange;
-use WP_Query;
+use Mwf\Lib\Deps\WP_Query;
 /**
  * Class PostQuery
  *

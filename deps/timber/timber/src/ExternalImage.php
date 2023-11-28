@@ -132,7 +132,7 @@ class ExternalImage implements ImageInterface
             // Assume URL.
             $external_image->init_with_url($url);
             return $external_image;
-        } elseif (\str_contains($url, \ABSPATH)) {
+        } elseif (\str_contains($url, ABSPATH)) {
             // Assume absolute path.
             $external_image->init_with_file_path($url);
             return $external_image;
@@ -394,7 +394,7 @@ class ExternalImage implements ImageInterface
         }
         $this->abs_url = $url;
         if (URLHelper::is_local($url)) {
-            $this->file_loc = URLHelper::remove_double_slashes(\ABSPATH . URLHelper::get_rel_url($url));
+            $this->file_loc = URLHelper::remove_double_slashes(ABSPATH . URLHelper::get_rel_url($url));
             $this->image_dimensions = new ImageDimensions($this->file_loc);
         }
     }

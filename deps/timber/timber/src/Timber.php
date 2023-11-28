@@ -9,12 +9,12 @@ use Mwf\Lib\Deps\Timber\Factory\PostFactory;
 use Mwf\Lib\Deps\Timber\Factory\TermFactory;
 use Mwf\Lib\Deps\Timber\Factory\UserFactory;
 use Mwf\Lib\Deps\Timber\Integration\IntegrationInterface;
-use WP_Comment;
-use WP_Comment_Query;
-use WP_Post;
-use WP_Query;
-use WP_Term;
-use WP_User;
+use Mwf\Lib\Deps\WP_Comment;
+use Mwf\Lib\Deps\WP_Comment_Query;
+use Mwf\Lib\Deps\WP_Post;
+use Mwf\Lib\Deps\WP_Query;
+use Mwf\Lib\Deps\WP_Term;
+use Mwf\Lib\Deps\WP_User;
 /**
  * Class Timber
  *
@@ -92,7 +92,7 @@ class Timber
      */
     public static function init()
     {
-        if (!\defined('ABSPATH') || !\class_exists('\\WP') || \defined('Mwf\\Lib\\Deps\\TIMBER_LOADED')) {
+        if (!\defined('Mwf\\Lib\\Deps\\ABSPATH') || !\class_exists('Mwf\\Lib\\Deps\\WP') || \defined('Mwf\\Lib\\Deps\\TIMBER_LOADED')) {
             return;
         }
         $self = new self();
@@ -537,7 +537,7 @@ class Timber
             return self::get_attachment_by('url', URLHelper::file_system_to_url($ident));
         }
         if (empty($ident)) {
-            $field = URLHelper::starts_with($field_or_ident, \ABSPATH) ? 'path' : 'url';
+            $field = URLHelper::starts_with($field_or_ident, ABSPATH) ? 'path' : 'url';
             return self::get_attachment_by($field, $field_or_ident);
         }
         return null;

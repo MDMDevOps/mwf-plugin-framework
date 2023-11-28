@@ -2,7 +2,7 @@
 
 namespace Mwf\Lib\Deps\Timber;
 
-use WP_Comment;
+use Mwf\Lib\Deps\WP_Comment;
 /**
  * Class Comment
  *
