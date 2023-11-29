@@ -4,7 +4,7 @@ declare (strict_types=1);
 namespace Mwf\Lib\Deps\DI\Invoker;
 
 use Mwf\Lib\Deps\Invoker\ParameterResolver\ParameterResolver;
-use Mwf\Lib\Deps\Psr\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use ReflectionFunctionAbstract;
 use ReflectionNamedType;
 /**

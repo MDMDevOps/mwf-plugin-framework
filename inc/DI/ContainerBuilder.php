@@ -79,34 +79,55 @@ class ContainerBuilder extends Deps\DI\ContainerBuilder
 	 */
 	public function addDefinitions( string|array|DefinitionSource ...$definitions ): self
 	{
+		$controller_definitions = [];
+
 		foreach ( $definitions as $definition ) {
-			$this->prewireDefinitions( $definition );
+			$controller_definitions += $this->autowireControllers( $definition );
 		}
 
 		parent::addDefinitions( ...$definitions );
 
+		parent::addDefinitions( $controller_definitions );
+
 		return $this;
 	}
 	/**
-	 * Autowire controller services
+	 * Auto wire controllers
 	 *
-	 * @param string|array<mixed>|DefinitionSource $definitions : definitions to add.
+	 * @param string|array|DefinitionSource|Helper\DefinitionHelper $definition : definition(s)
+	 * @param string                                                $key : optional key, used in recursion
 	 *
-	 * @return void
+	 * @return array
 	 */
-	protected function prewireDefinitions( string|array|DefinitionSource $definitions, string $key = '' ): void
+	protected function autowireControllers( string|array|DefinitionSource|Helper\DefinitionHelper $definition, string $key = '' ): array
 	{
-		if ( is_array( $definitions ) ) {
-			foreach ( $definitions as $key => $definition ) {
-				if ( is_subclass_of( $definition, Helper\DefinitionHelper::class ) ) {
-					$class_name = $definition->getDefinition( $key )->getClassName();
-		
-					if ( Helpers::implements( $class_name, Interfaces\Controller::class ) ) {
-						$this->addDefinitions( $class_name::getServiceDefinitions() );
-					}
+		$extended_definitions = [];
+
+		if ( is_array( $definition ) ) {
+			foreach ( $definition as $key => $definitions ) {
+				$extended_definitions += $this->autowireControllers( $definitions, $key );
+			}
+		}
+		elseif ( 
+			is_object( $definition ) 
+			&& is_subclass_of( $definition, Helper\DefinitionHelper::class )
+			&& ! empty( $key )
+		) {
+			$definition_object = $definition->getDefinition( $key );
+
+			if (
+				is_object( $definition_object )
+				&& method_exists( $definition_object, 'getClassName' )
+			) {
+				$class_name = $definition_object->getClassName();
+				
+				if ( Helpers::implements( $class_name, Interfaces\Controller::class ) ) {
+					$extended_definitions = $class_name::getServiceDefinitions();
 				}
 			}
 		}
+
+		return $extended_definitions;
 	}
 	/**
 	 * Wrapper for parent auto wire function. Only used for simplicity
@@ -151,4 +172,20 @@ class ContainerBuilder extends Deps\DI\ContainerBuilder
 	{
 		return Deps\DI\factory( $factory );
 	}
+	/**
+     * Decorate the previous definition using a callable.
+     *
+     * Example:
+     *
+     *     'foo' => decorate(function ($foo, $container) {
+     *         return new CachedFoo($foo, $container->get('cache'));
+     *     })
+     *
+     * @param callable $callable The callable takes the decorated object as first parameter and
+     *                           the container as second.
+     */
+    public static function decorate( callable|array|string $decorator ) : Helper\DefinitionHelper
+    {
+		return Deps\DI\decorate( $decorator );
+    }
 }

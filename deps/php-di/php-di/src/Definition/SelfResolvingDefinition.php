@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Mwf\Lib\Deps\DI\Definition;
 
-use Mwf\Lib\Deps\Psr\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 /**
  * Describes a definition that can resolve itself.
  *

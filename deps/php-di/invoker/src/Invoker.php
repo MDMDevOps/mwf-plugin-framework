@@ -11,7 +11,7 @@ use Mwf\Lib\Deps\Invoker\ParameterResolver\NumericArrayResolver;
 use Mwf\Lib\Deps\Invoker\ParameterResolver\ParameterResolver;
 use Mwf\Lib\Deps\Invoker\ParameterResolver\ResolverChain;
 use Mwf\Lib\Deps\Invoker\Reflection\CallableReflection;
-use Mwf\Lib\Deps\Psr\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use ReflectionParameter;
 /**
  * Invoke a callable.

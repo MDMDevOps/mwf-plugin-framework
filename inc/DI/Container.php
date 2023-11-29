@@ -79,7 +79,7 @@ final class Container extends DI\Container
 
 			$definition = $this->getDefinition( $id );
 
-			if ( ! method_exists( $definition, 'getClassName' ) ) {
+			if ( ! is_object( $definition ) || ! method_exists( $definition, 'getClassName' ) ) {
 				return;
 			}
 

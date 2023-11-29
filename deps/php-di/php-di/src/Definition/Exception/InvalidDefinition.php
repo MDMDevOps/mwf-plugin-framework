@@ -4,7 +4,7 @@ declare (strict_types=1);
 namespace Mwf\Lib\Deps\DI\Definition\Exception;
 
 use Mwf\Lib\Deps\DI\Definition\Definition;
-use Mwf\Lib\Deps\Psr\Container\ContainerExceptionInterface;
+use Psr\Container\ContainerExceptionInterface;
 /**
  * Invalid DI definitions.
  *

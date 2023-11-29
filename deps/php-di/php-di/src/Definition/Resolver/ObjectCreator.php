@@ -11,7 +11,7 @@ use Mwf\Lib\Deps\DI\DependencyException;
 use Mwf\Lib\Deps\DI\Proxy\ProxyFactory;
 use Exception;
 use Mwf\Lib\Deps\ProxyManager\Proxy\LazyLoadingInterface;
-use Mwf\Lib\Deps\Psr\Container\NotFoundExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 use ReflectionClass;
 use ReflectionProperty;
 /**

@@ -13,7 +13,7 @@ use Mwf\Lib\Deps\DI\Definition\InstanceDefinition;
 use Mwf\Lib\Deps\DI\Definition\ObjectDefinition;
 use Mwf\Lib\Deps\DI\Definition\SelfResolvingDefinition;
 use Mwf\Lib\Deps\DI\Proxy\ProxyFactory;
-use Mwf\Lib\Deps\Psr\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 /**
  * Dispatches to more specific resolvers.
  *

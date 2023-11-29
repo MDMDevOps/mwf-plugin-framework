@@ -4,8 +4,8 @@ declare (strict_types=1);
 namespace Mwf\Lib\Deps\DI\Definition;
 
 use Mwf\Lib\Deps\DI\DependencyException;
-use Mwf\Lib\Deps\Psr\Container\ContainerInterface;
-use Mwf\Lib\Deps\Psr\Container\NotFoundExceptionInterface;
+use Psr\Container\ContainerInterface;
+use Psr\Container\NotFoundExceptionInterface;
 /**
  * Definition of a string composed of other strings.
  *

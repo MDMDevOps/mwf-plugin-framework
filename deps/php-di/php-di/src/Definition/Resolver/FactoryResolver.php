@@ -14,7 +14,7 @@ use Mwf\Lib\Deps\Invoker\ParameterResolver\AssociativeArrayResolver;
 use Mwf\Lib\Deps\Invoker\ParameterResolver\DefaultValueResolver;
 use Mwf\Lib\Deps\Invoker\ParameterResolver\NumericArrayResolver;
 use Mwf\Lib\Deps\Invoker\ParameterResolver\ResolverChain;
-use Mwf\Lib\Deps\Psr\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 /**
  * Resolves a factory definition to a value.
  *

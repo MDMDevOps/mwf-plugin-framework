@@ -14,7 +14,7 @@ use Mwf\Lib\Deps\DI\Definition\Source\SourceCache;
 use Mwf\Lib\Deps\DI\Definition\Source\SourceChain;
 use Mwf\Lib\Deps\DI\Proxy\ProxyFactory;
 use InvalidArgumentException;
-use Mwf\Lib\Deps\Psr\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 /**
  * Helper to create and configure a Container.
  *

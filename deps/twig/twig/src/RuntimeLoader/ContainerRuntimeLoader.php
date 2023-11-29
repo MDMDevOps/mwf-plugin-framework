@@ -10,7 +10,7 @@
  */
 namespace Mwf\Lib\Deps\Twig\RuntimeLoader;
 
-use Mwf\Lib\Deps\Psr\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 /**
  * Lazily loads Twig runtime implementations from a PSR-11 container.
  *

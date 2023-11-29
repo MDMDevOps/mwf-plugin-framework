@@ -1,6 +1,6 @@
 <?php
 
-namespace Mwf\Lib\Deps\Psr\Container;
+namespace Psr\Container;
 
 use Throwable;
 /**

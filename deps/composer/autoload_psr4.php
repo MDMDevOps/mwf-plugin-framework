@@ -6,12 +6,12 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Psr\\Container\\' => array($vendorDir . '/psr/container/src'),
     'Mwf\\Lib\\Deps\\Twig\\' => array($vendorDir . '/twig/twig/src'),
     'Mwf\\Lib\\Deps\\Timber\\' => array($vendorDir . '/timber/timber/src'),
     'Mwf\\Lib\\Deps\\Symfony\\Polyfill\\Php80\\' => array($vendorDir . '/symfony/polyfill-php80'),
     'Mwf\\Lib\\Deps\\Symfony\\Polyfill\\Mbstring\\' => array($vendorDir . '/symfony/polyfill-mbstring'),
     'Mwf\\Lib\\Deps\\Symfony\\Polyfill\\Ctype\\' => array($vendorDir . '/symfony/polyfill-ctype'),
-    'Mwf\\Lib\\Deps\\Psr\\Container\\' => array($vendorDir . '/psr/container/src'),
     'Mwf\\Lib\\Deps\\Laravel\\SerializableClosure\\' => array($vendorDir . '/laravel/serializable-closure/src'),
     'Mwf\\Lib\\Deps\\Invoker\\' => array($vendorDir . '/php-di/invoker/src'),
     'Mwf\\Lib\\Deps\\DI\\' => array($vendorDir . '/php-di/php-di/src'),

@@ -175,7 +175,9 @@ function customize_php_scoper_config( array $config ): array
     $config[ 'exclude-functions' ] = $wpify[ 'expose-functions' ];
     $config[ 'exclude-constants' ] = $wpify[ 'expose-constants' ];
     $config[ 'exclude-classes' ] = $wpify[ 'expose-classes' ];
-    $config[ 'exclude-namespaces' ] = $wpify[ 'expose-namespaces' ];
+    $config[ 'exclude-namespaces' ] = array_merge( $wpify[ 'expose-namespaces' ], [
+        'Psr'
+    ] );
 
 	$twigPrefixer = new TwigPrefixer();
 

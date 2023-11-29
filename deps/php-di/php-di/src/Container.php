@@ -26,7 +26,7 @@ use Mwf\Lib\Deps\Invoker\ParameterResolver\Container\TypeHintContainerResolver;
 use Mwf\Lib\Deps\Invoker\ParameterResolver\DefaultValueResolver;
 use Mwf\Lib\Deps\Invoker\ParameterResolver\NumericArrayResolver;
 use Mwf\Lib\Deps\Invoker\ParameterResolver\ResolverChain;
-use Mwf\Lib\Deps\Psr\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 /**
  * Dependency Injection Container.
  *

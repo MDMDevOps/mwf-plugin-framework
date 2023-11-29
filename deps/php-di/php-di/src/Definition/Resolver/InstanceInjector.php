@@ -6,7 +6,7 @@ namespace Mwf\Lib\Deps\DI\Definition\Resolver;
 use Mwf\Lib\Deps\DI\Definition\Definition;
 use Mwf\Lib\Deps\DI\Definition\InstanceDefinition;
 use Mwf\Lib\Deps\DI\DependencyException;
-use Mwf\Lib\Deps\Psr\Container\NotFoundExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 /**
  * Injects dependencies on an existing instance.
  *

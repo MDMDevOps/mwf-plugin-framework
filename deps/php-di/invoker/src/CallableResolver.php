@@ -5,8 +5,8 @@ namespace Mwf\Lib\Deps\Invoker;
 
 use Closure;
 use Mwf\Lib\Deps\Invoker\Exception\NotCallableException;
-use Mwf\Lib\Deps\Psr\Container\ContainerInterface;
-use Mwf\Lib\Deps\Psr\Container\NotFoundExceptionInterface;
+use Psr\Container\ContainerInterface;
+use Psr\Container\NotFoundExceptionInterface;
 use ReflectionException;
 use ReflectionMethod;
 /**

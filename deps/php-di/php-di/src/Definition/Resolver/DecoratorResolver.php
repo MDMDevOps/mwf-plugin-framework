@@ -6,7 +6,7 @@ namespace Mwf\Lib\Deps\DI\Definition\Resolver;
 use Mwf\Lib\Deps\DI\Definition\DecoratorDefinition;
 use Mwf\Lib\Deps\DI\Definition\Definition;
 use Mwf\Lib\Deps\DI\Definition\Exception\InvalidDefinition;
-use Mwf\Lib\Deps\Psr\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 /**
  * Resolves a decorator definition to a value.
  *

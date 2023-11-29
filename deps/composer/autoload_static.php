@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitbdbcc67ee0f90d550925629f0243962d
+class ComposerStaticInite8c5a7153d130da07fcac00b85d201bb
 {
     public static $files = array (
         'mwf\lib\depsa4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -14,6 +14,10 @@ class ComposerStaticInitbdbcc67ee0f90d550925629f0243962d
     );
 
     public static $prefixLengthsPsr4 = array (
+        'P' => 
+        array (
+            'Psr\\Container\\' => 14,
+        ),
         'M' => 
         array (
             'Mwf\\Lib\\Deps\\Twig\\' => 18,
@@ -21,7 +25,6 @@ class ComposerStaticInitbdbcc67ee0f90d550925629f0243962d
             'Mwf\\Lib\\Deps\\Symfony\\Polyfill\\Php80\\' => 36,
             'Mwf\\Lib\\Deps\\Symfony\\Polyfill\\Mbstring\\' => 39,
             'Mwf\\Lib\\Deps\\Symfony\\Polyfill\\Ctype\\' => 36,
-            'Mwf\\Lib\\Deps\\Psr\\Container\\' => 27,
             'Mwf\\Lib\\Deps\\Laravel\\SerializableClosure\\' => 41,
             'Mwf\\Lib\\Deps\\Invoker\\' => 21,
             'Mwf\\Lib\\Deps\\DI\\' => 16,
@@ -30,6 +33,10 @@ class ComposerStaticInitbdbcc67ee0f90d550925629f0243962d
     );
 
     public static $prefixDirsPsr4 = array (
+        'Psr\\Container\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/container/src',
+        ),
         'Mwf\\Lib\\Deps\\Twig\\' => 
         array (
             0 => __DIR__ . '/..' . '/twig/twig/src',
@@ -49,10 +56,6 @@ class ComposerStaticInitbdbcc67ee0f90d550925629f0243962d
         'Mwf\\Lib\\Deps\\Symfony\\Polyfill\\Ctype\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
-        ),
-        'Mwf\\Lib\\Deps\\Psr\\Container\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/psr/container/src',
         ),
         'Mwf\\Lib\\Deps\\Laravel\\SerializableClosure\\' => 
         array (
@@ -259,9 +262,6 @@ class ComposerStaticInitbdbcc67ee0f90d550925629f0243962d
         'Mwf\\Lib\\Deps\\Laravel\\SerializableClosure\\Support\\SelfReference' => __DIR__ . '/..' . '/laravel/serializable-closure/src/Support/SelfReference.php',
         'Mwf\\Lib\\Deps\\Laravel\\SerializableClosure\\UnsignedSerializableClosure' => __DIR__ . '/..' . '/laravel/serializable-closure/src/UnsignedSerializableClosure.php',
         'Mwf\\Lib\\Deps\\PhpToken' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/PhpToken.php',
-        'Mwf\\Lib\\Deps\\Psr\\Container\\ContainerExceptionInterface' => __DIR__ . '/..' . '/psr/container/src/ContainerExceptionInterface.php',
-        'Mwf\\Lib\\Deps\\Psr\\Container\\ContainerInterface' => __DIR__ . '/..' . '/psr/container/src/ContainerInterface.php',
-        'Mwf\\Lib\\Deps\\Psr\\Container\\NotFoundExceptionInterface' => __DIR__ . '/..' . '/psr/container/src/NotFoundExceptionInterface.php',
         'Mwf\\Lib\\Deps\\Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
         'Mwf\\Lib\\Deps\\Symfony\\Polyfill\\Ctype\\Ctype' => __DIR__ . '/..' . '/symfony/polyfill-ctype/Ctype.php',
         'Mwf\\Lib\\Deps\\Symfony\\Polyfill\\Mbstring\\Mbstring' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/Mbstring.php',
@@ -512,14 +512,17 @@ class ComposerStaticInitbdbcc67ee0f90d550925629f0243962d
         'Mwf\\Lib\\Deps\\Twig\\Util\\TemplateDirIterator' => __DIR__ . '/..' . '/twig/twig/src/Util/TemplateDirIterator.php',
         'Mwf\\Lib\\Deps\\UnhandledMatchError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
         'Mwf\\Lib\\Deps\\ValueError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
+        'Psr\\Container\\ContainerExceptionInterface' => __DIR__ . '/..' . '/psr/container/src/ContainerExceptionInterface.php',
+        'Psr\\Container\\ContainerInterface' => __DIR__ . '/..' . '/psr/container/src/ContainerInterface.php',
+        'Psr\\Container\\NotFoundExceptionInterface' => __DIR__ . '/..' . '/psr/container/src/NotFoundExceptionInterface.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitbdbcc67ee0f90d550925629f0243962d::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitbdbcc67ee0f90d550925629f0243962d::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitbdbcc67ee0f90d550925629f0243962d::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInite8c5a7153d130da07fcac00b85d201bb::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInite8c5a7153d130da07fcac00b85d201bb::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInite8c5a7153d130da07fcac00b85d201bb::$classMap;
 
         }, null, ClassLoader::class);
     }
