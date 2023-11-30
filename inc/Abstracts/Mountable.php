@@ -31,18 +31,18 @@ abstract class Mountable extends Member implements Interfaces\Mountable
 	 * @var string
 	 */
 	protected string $slug = '';
-    /**
-     * Getter for slug field
-     *
-     * @return string
-     */
-    protected function slug(): string
-    {
+	/**
+	 * Getter for slug field
+	 *
+	 * @return string
+	 */
+	protected function slug(): string
+	{
 		if ( ! isset( $this->slug ) ) {
 			$this->slug = strtolower( str_replace( [ '\\', '/', ' ' ], '_', static::class ) );
 		}
-        return $this->slug;
-    }
+		return $this->slug;
+	}
 	/**
 	 * Check if loading action has already fired
 	 *

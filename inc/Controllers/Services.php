@@ -52,7 +52,7 @@ class Services extends Abstracts\Mountable implements Interfaces\Controller
 	/**
 	 * Mount router functions/filters
 	 *
-	 * @param Interfaces\Services\Router $router
+	 * @param Interfaces\Services\Router $router : instance of router service.
 	 *
 	 * @return void
 	 */
@@ -66,7 +66,7 @@ class Services extends Abstracts\Mountable implements Interfaces\Controller
 	/**
 	 * Mount compiler filters & add twig functions
 	 *
-	 * @param Interfaces\Services\Compiler $compiler
+	 * @param Interfaces\Services\Compiler $compiler : instance of compiler service.
 	 *
 	 * @return void
 	 */

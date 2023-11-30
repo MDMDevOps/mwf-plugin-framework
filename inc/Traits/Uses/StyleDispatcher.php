@@ -1,6 +1,6 @@
 <?php
 /**
- * Directory Handler definition
+ * Style User definition
  *
  * PHP Version 8.0.28
  *
@@ -14,12 +14,12 @@
 namespace Mwf\Lib\Traits\Uses;
 
 use Mwf\Lib\Deps\DI\Attribute\Inject,
-    Mwf\Lib\Interfaces;
+	Mwf\Lib\Interfaces;
 
 /**
- * Directory Handler Trait
+ * Style user Trait
  *
- * Allows classes that use this trait to work with directory helpers
+ * Used by classes to import the style dispatcher
  *
  * @subpackage Traits
  */
@@ -32,9 +32,9 @@ trait StyleDispatcher
 	 */
 	protected ?Interfaces\Dispatchers\Styles $style_dispatcher;
 	/**
-	 * Setter for the style handler
+	 * Setter for the style dispatcher
 	 *
-	 * @param Interfaces\Dispatchers\Styles $style_handler : instance of style dispatcher.
+	 * @param Interfaces\Dispatchers\Styles $style_dispatcher : instance of style dispatcher.
 	 *
 	 * @return void
 	 */
@@ -44,7 +44,7 @@ trait StyleDispatcher
 		$this->style_dispatcher = $style_dispatcher;
 	}
 	/**
-	 * Getter for style handler
+	 * Getter for style dispatcher
 	 *
 	 * @return Interfaces\Dispatchers\Styles|null
 	 */
@@ -69,8 +69,7 @@ trait StyleDispatcher
 		array $dependencies = [],
 		string $version = null,
 		$screens = 'all'
-	): void
-	{
+	): void {
 		$this->style_dispatcher->enqueue(
 			$handle,
 			$path,

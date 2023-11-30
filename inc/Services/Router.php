@@ -38,7 +38,7 @@ class Router extends Abstracts\Mountable implements Interfaces\Services\Router
 	 */
 	protected function defineRoutes(): array
 	{
-		$routes = match( true ) {
+		$routes = match ( true ) {
 			is_front_page() && ! is_home() => [ 'single', 'frontpage' ],
 			is_home() => [ 'archive', 'blog' ],
 			is_search() => [ 'archive', 'search' ],
@@ -74,7 +74,7 @@ class Router extends Abstracts\Mountable implements Interfaces\Services\Router
 	{
 		$routes = $this->getRoutes();
 
-		return ! empty( $default_routes ) 
+		return ! empty( $default_routes )
 			? array_merge( $default_routes, $this->getRoutes() )
 			: $this->getRoutes();
 	}

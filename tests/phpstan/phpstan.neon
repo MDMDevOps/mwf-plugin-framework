@@ -1,5 +1,5 @@
 includes:
-    - ../../lib/szepeviktor/phpstan-wordpress/extension.neon
+    - ../../vendor/szepeviktor/phpstan-wordpress/extension.neon
 parameters:
 	level: 6
 	checkGenericClassInNonGenericObjectType : false
@@ -8,3 +8,5 @@ parameters:
 	stubFiles:
 		- stubs/DI/ContainerBuilder.stub
 		- stubs/Container.stub
+	scanDirectories:
+		- ../../deps

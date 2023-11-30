@@ -1,6 +1,6 @@
 <?php
 /**
- * Admin Service Definition
+ * Style dispatcher
  *
  * PHP Version 8.0.28
  *
@@ -32,14 +32,13 @@ class Styles extends Abstracts\Mountable implements
 {
 	use Traits\Handlers\Url;
 	use Traits\Handlers\Directory;
-	
+
 	/**
 	 * Set the base directory - relative to the main plugin file
 	 *
 	 * Can include an additional string, to make it relative to a different file
 	 *
-	 * @param string $root : root path of the plugin.
-	 * @param string      $append : string to append to base directory path.
+	 * @param string $dir : root url path.
 	 *
 	 * @return void
 	 */

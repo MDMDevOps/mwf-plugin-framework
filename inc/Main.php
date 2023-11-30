@@ -13,10 +13,12 @@
 
 namespace Mwf\Lib;
 
-use Mwf\Lib\DI\Container,
-	Mwf\Lib\DI\ContainerBuilder;
+use Mwf\Lib\DI\ContainerBuilder;
+
+use Psr\Container\ContainerInterface;
+
 /**
- * Main APp Class
+ * Main App Class
  *
  * Used as the base for a plugin/theme
  *
@@ -31,9 +33,9 @@ class Main extends Abstracts\Mountable
 	 * The service container for dependency injections, and locating service
 	 * instances
 	 *
-	 * @var Container
+	 * @var ContainerInterface
 	 */
-	protected Container $service_container;
+	protected ContainerInterface $service_container;
 	/**
 	 * Constructor for new instance of plugin
 	 *
@@ -100,9 +102,9 @@ class Main extends Abstracts\Mountable
 	 * - Add plugin specific definitions
 	 * - Get service definitions from controllers
 	 *
-	 * @return Container
+	 * @return ContainerInterface
 	 */
-	protected function buildContainer(): Container
+	protected function buildContainer(): ContainerInterface
 	{
 		$container_builder = new ContainerBuilder();
 
@@ -124,9 +126,9 @@ class Main extends Abstracts\Mountable
 	 *
 	 * Cache is used to give access to the container instead of a singleton
 	 *
-	 * @return Container
+	 * @return ContainerInterface
 	 */
-	protected function getContainer()
+	protected function getContainer(): ContainerInterface
 	{
 		$container = ContainerBuilder::locateContainer( static::class );
 
@@ -134,7 +136,7 @@ class Main extends Abstracts\Mountable
 			$container = $this->buildContainer();
 			ContainerBuilder::cacheContainer( static::class, $container );
 		}
-		
+
 		return $container;
 	}
 	/**
@@ -158,20 +160,32 @@ class Main extends Abstracts\Mountable
 
 		return $definitions;
 	}
-
+	/**
+	 * Mount the plugin
+	 *
+	 * @return void
+	 */
 	public function mount(): void
 	{
 		$this->mountActions();
 		$this->mountControllers();
 		parent::onMount();
 	}
-
+	/**
+	 * Mount the Actions
+	 *
+	 * @return void
+	 */
 	public function mountActions(): void
 	{
 		add_filter( "{$this->package}_has_route", [ $this, 'hasRoute' ], 5, 2 );
 		add_action( "{$this->package}_load_route", [ $this, 'loadRoute' ], 5 );
 	}
-
+	/**
+	 * Mount the controller classes
+	 *
+	 * @return void
+	 */
 	public function mountControllers(): void
 	{
 		$this->service_container->get( Controllers\Services::class );

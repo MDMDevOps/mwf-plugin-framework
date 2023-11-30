@@ -1,6 +1,6 @@
 <?php
 /**
- * Admin Service Definition
+ * Scripts dispatcher
  *
  * PHP Version 8.0.28
  *
@@ -19,10 +19,7 @@ use Mwf\Lib\Deps\DI\Attribute\Inject,
 	Mwf\Lib\Traits;
 
 /**
- * Service class to control admin functions
- * - Enqueues Admin CSS
- * - Enqueues Admin JS
- * - Adds Metaboxes
+ * Dispatcher to handle JS file enqueueing
  *
  * @subpackage Dispatchers
  */
@@ -33,13 +30,13 @@ class Scripts extends Abstracts\Mountable implements
 {
 	use Traits\Handlers\Url;
 	use Traits\Handlers\Directory;
+
 	/**
 	 * Set the base directory - relative to the main plugin file
 	 *
 	 * Can include an additional string, to make it relative to a different file
 	 *
-	 * @param string $root : root path of the plugin.
-	 * @param string      $append : string to append to base directory path.
+	 * @param string $dir : the root directory path.
 	 *
 	 * @return void
 	 */
@@ -78,7 +75,7 @@ class Scripts extends Abstracts\Mountable implements
 			str_ireplace( '.js', '', $path )
 		);
 
-		
+
 
 		if ( is_file( $asset_file ) ) {
 			$args = include $asset_file;

@@ -1,6 +1,6 @@
 <?php
 /**
- * Factory devinition
+ * Factory definition
  *
  * PHP Version 8.0.28
  *
@@ -16,19 +16,30 @@ namespace Mwf\Lib;
 /**
  * App Factory
  *
+ * Used to bootstrap extended files.
+ *
  * @subpackage Utilities
  */
 class Factory
 {
-    public static function create( string $class, string $package = '', string $root_file = '' ) {
-        require_once trailingslashit( dirname( __DIR__, 1 ) ) . 'deps/autoload.php';
-        
-        $app = new $class( $package, $root_file );
-        
-        if ( is_subclass_of( $app, Main::class ) ) {
-            $app->mount();
-        }
-        
-        return $app;
-    }
+	/**
+	 * Static function to create new instances of `main`
+	 *
+	 * @param string $class : name of the class to instantiate.
+	 * @param string $package : package ID to pass to main.
+	 * @param string $root_file : root file/dir location to use.
+	 *
+	 * @return Main|null
+	 */
+	public static function create( string $class, string $package = '', string $root_file = '' ): ?Main
+	{
+		require_once trailingslashit( dirname( __DIR__, 1 ) ) . 'deps/autoload.php';
+
+		if ( is_subclass_of( $class, Main::class ) ) {
+			$app = new $class( $package, $root_file );
+			$app->mount();
+			return $app;
+		}
+		return null;
+	}
 }

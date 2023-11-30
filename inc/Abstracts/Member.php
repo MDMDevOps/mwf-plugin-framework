@@ -37,7 +37,8 @@ abstract class Member implements Interfaces\Member
 	 * Base constructor
 	 */
 	public function __construct()
-	{}
+	{
+	}
 	/**
 	 * Setter for package field
 	 *
@@ -50,13 +51,13 @@ abstract class Member implements Interfaces\Member
 	{
 		$this->package = strtolower( str_replace( [ '\\', '/', ' ' ], '_', trim( $package ) ) );
 	}
-    /**
+	/**
 	 * Getter for package field
 	 *
 	 * @return string
 	 */
 	public function getPackage(): string
-    {
-        return $this->package;
-    }
+	{
+		return $this->package;
+	}
 }

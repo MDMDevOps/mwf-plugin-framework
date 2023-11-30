@@ -14,17 +14,13 @@
 namespace Mwf\Lib\DI;
 
 use Mwf\Lib\Deps\DI,
-	Mwf\Lib\Deps\DI\Definition\Definition,
 	Mwf\Lib\Deps\DI\DependencyException,
 	Mwf\Lib\Deps\DI\NotFoundException,
-	Mwf\Lib\Deps\DI\Definition\Helper,
-	Mwf\Lib\Deps\DI\Attribute\Inject,
-	WP_Error;
+	Mwf\Lib\Deps\DI\Attribute\Inject;
 
-use Mwf\Lib\Interfaces,
-	Mwf\Lib\Traits,
-	Mwf\Lib\Helpers;
-	
+use ReflectionClass,
+	ReflectionParameter,
+	WP_Error;
 
 /**
  * Service Container
@@ -33,9 +29,6 @@ use Mwf\Lib\Interfaces,
  */
 final class Container extends DI\Container
 {
-
-    // private DefinitionResolver $definitionResolver;
-	// private MutableDefinitionSource $definitionSource;
 	/**
 	 * Returns an entry of the container by its name.
 	 *
@@ -50,10 +43,14 @@ final class Container extends DI\Container
 	{
 		/**
 		 * If already resolved, just return...
+		 *
+		 * Ignored by phpcs because of not being in snake case. Cannot fix.
 		 */
+		// phpcs:ignore
 		if ( isset( $this->resolvedEntries[ $id ] ) || array_key_exists( $id, $this->resolvedEntries ) ) {
-            return $this->resolvedEntries[ $id ];
-        }
+			// phpcs:ignore
+			return $this->resolvedEntries[ $id ];
+		}
 		/**
 		 * Else load new service
 		 */
@@ -76,7 +73,6 @@ final class Container extends DI\Container
 	protected function beforeGetService( string $id ): void
 	{
 		if ( $this->has( 'app.package' ) ) {
-
 			$definition = $this->getDefinition( $id );
 
 			if ( ! is_object( $definition ) || ! method_exists( $definition, 'getClassName' ) ) {
@@ -88,7 +84,7 @@ final class Container extends DI\Container
 	}
 	/**
 	 * Actions to run after a service is retrieved
-	 * 
+	 *
 	 * Checks for `OnMount` attributes, and fires those methods.
 	 *
 	 * @param mixed $instance : instance of service retrieved.
@@ -101,12 +97,11 @@ final class Container extends DI\Container
 			return;
 		}
 
-		$reflection = new \ReflectionClass( $instance );
+		$reflection = new ReflectionClass( $instance );
 
 		$callables = [];
 
 		foreach ( $reflection->getMethods() as $method ) {
-			
 			$attributes = $method->getAttributes( OnMount::class );
 
 			if ( empty( $attributes ) ) {
@@ -114,7 +109,6 @@ final class Container extends DI\Container
 			}
 
 			foreach ( $attributes as $attribute ) {
-
 				$att = $attribute->newInstance();
 
 				$att->setParameters( $this->getInjectableAttributes( $method->getParameters() ) );
@@ -125,22 +119,23 @@ final class Container extends DI\Container
 			}
 		}
 		/**
-		 * Sort by priority 
+		 * Sort by priority
 		 */
-		usort( $callables, function( OnMount $a, OnMount $b ) {
-			return $a->getPriority() > $b->getPriority() ? 1 : 0;
-		} );
+		usort(
+			$callables,
+			function ( OnMount $a, OnMount $b ) {
+				return $a->getPriority() > $b->getPriority() ? 1 : 0;
+			}
+		);
 		/**
 		 * Fire callables
 		 */
 		foreach ( $callables as $callable ) {
-
 			if ( empty( $callable->getMethod() ) ) {
 				continue;
 			}
 
 			$this->call( [ $instance, $callable->getMethod() ], $callable->getParameters() );
-
 		}
 		/**
 		 * Run action for additional decoration
@@ -152,24 +147,20 @@ final class Container extends DI\Container
 	/**
 	 * Get attributes that use `[Inject]` class
 	 *
-	 * @param array<ReflectionParameter> $parameters : array of reflection attributes.
+	 * @param array<int, ReflectionParameter> $parameters : array of reflection attributes.
 	 *
-	 * @return array
+	 * @return array<string, string>
 	 */
 	protected function getInjectableAttributes( array $parameters ): array
 	{
 		$call_params = [];
 
 		if ( ! empty( $parameters ) ) {
-
 			foreach ( $parameters as $parameter ) {
-
 				$injectables = $parameter->getAttributes( Inject::class );
 
 				if ( ! empty( $injectables ) ) {
-
 					foreach ( $injectables as $injectable ) {
-
 						$inj = $injectable->newInstance();
 
 						$call_params[ $parameter->getName() ] = $this->get( $inj->getName() );

@@ -25,9 +25,10 @@ use Mwf\Lib\Abstracts,
  */
 class Login extends Abstracts\Mountable implements Interfaces\Uses\ScriptDispatcher, Interfaces\Uses\StyleDispatcher
 {
-    use Traits\Uses\ScriptDispatcher;
+	use Traits\Uses\ScriptDispatcher;
 	use Traits\Uses\StyleDispatcher;
-    /**
+
+	/**
 	 * Load actions and filters, and other setup requirements
 	 *
 	 * @return void

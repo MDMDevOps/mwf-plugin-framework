@@ -13,7 +13,7 @@
 
 namespace Mwf\Lib\Interfaces\Uses;
 
-use Mwf\Lib\Interfaces\Dispatchers;
+use Mwf\Lib\Interfaces;
 
 /**
  * Uses\Styles interface
@@ -25,19 +25,19 @@ use Mwf\Lib\Interfaces\Dispatchers;
 interface StyleDispatcher
 {
 	/**
-	 * Setter for the style handler
+	 * Setter for the style dispatcher
 	 *
-	 * @param Dispatchers\Styles $style_handler : instance of style dispatcher.
+	 * @param Interfaces\Dispatchers\Styles $style_dispatcher : instance of style dispatcher.
 	 *
 	 * @return void
 	 */
-	public function setStyleDispatcher( Dispatchers\Styles $style_handler ): void;
+	public function setStyleDispatcher( Interfaces\Dispatchers\Styles $style_dispatcher ): void;
 	/**
-	 * Getter for style handler
+	 * Getter for style dispatcher
 	 *
-	 * @return Dispatchers\Styles|null
+	 * @return Interfaces\Dispatchers\Styles|null
 	 */
-	public function getStyleDispatcher(): ?Dispatchers\Styles;
+	public function getStyleDispatcher(): ?Interfaces\Dispatchers\Styles;
 	/**
 	 * Enqueue a style in the dist/build directories
 	 *

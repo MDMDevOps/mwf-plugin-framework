@@ -13,7 +13,7 @@
 
 namespace Mwf\Lib\Interfaces\Uses;
 
-use Mwf\Lib\Interfaces\Dispatchers;
+use Mwf\Lib\Interfaces;
 
 /**
  * Uses\Scripts interface
@@ -25,20 +25,20 @@ use Mwf\Lib\Interfaces\Dispatchers;
 interface ScriptDispatcher
 {
 	/**
-	 * Setter for the script handler
+	 * Setter for the script dispatcher
 	 *
-	 * @param Dispatchers\Scripts $script_handler : instance of script dispatcher.
+	 * @param Interfaces\Dispatchers\Scripts $script_dispatcher : instance of script dispatcher.
 	 *
 	 * @return void
 	 */
-	public function setScriptDispatcher( Dispatchers\Scripts $script_handler ): void;
+	public function setScriptDispatcher( Interfaces\Dispatchers\Scripts $script_dispatcher ): void;
 	/**
-	 * Getter for the script handler
+	 * Getter for the script dispatcher
 	 *
-	 * @return Dispatchers\Scripts|null
+	 * @return Interfaces\Dispatchers\Scripts|null
 	 */
-	public function getScriptDispatcher(): ?Dispatchers\Scripts;
-	    /**
+	public function getScriptDispatcher(): ?Interfaces\Dispatchers\Scripts;
+	/**
 	 * Register a JS file with WordPress
 	 *
 	 * @param string             $handle : handle to register.
@@ -47,7 +47,7 @@ interface ScriptDispatcher
 	 * @param string             $version : version of JS file, optional.
 	 * @param boolean            $in_footer : whether to enqueue in footer, optional.
 	 *
-	 * @return string
+	 * @return void
 	 */
 	public function enqueueScript(
 		string $handle,

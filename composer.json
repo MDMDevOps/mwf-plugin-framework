@@ -26,7 +26,8 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"Mwf\\Lib\\" : "inc"
+			"Mwf\\Lib\\" : "inc",
+			"Mwf\\Lib\\Deps\\" : "deps"
 		}
 	},
 	"require-dev": {

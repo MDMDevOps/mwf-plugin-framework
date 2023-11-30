@@ -60,18 +60,22 @@ class Compiler extends Abstracts\Mountable implements Interfaces\Services\Compil
 	 */
 	protected array $template_locations = [];
 	/**
-	 * Instance of twig
+	 * Directory path to twig view files
 	 *
-	 * @var ?Environment
+	 * @var string
 	 */
-	protected ?Environment $twig;
+	protected string $views_dir = '';
 	/**
-	 * Constructor
-	 * 
-	 * @param $views_dir : directory path to twig view files
+	 * Setter for the views directory
+	 *
+	 * @param string $views_dir : path to twig files directory.
+	 *
+	 * @return void
 	 */
-	public function __construct( #[Inject( 'views.dir' )] public string $views_dir )
+	#[Inject]
+	public function setViewsDirectory( #[Inject( 'views.dir' )] string $views_dir ): void
 	{
+		$this->views_dir = $views_dir;
 	}
 	/**
 	 * Add the 'post' to context, if not already present.
@@ -99,38 +103,40 @@ class Compiler extends Abstracts\Mountable implements Interfaces\Services\Compil
 	 * Filters the default locations array for twig to search for templates. We never use some paths, so there's
 	 * no reason to waste overhead looking for templates there.
 	 *
-	 * @param array<int, string> $locations : Array of absolute paths to
+	 * @param array<string,mixed> $locations : Array of absolute paths to
 	 *                                        available templates.
 	 *
-	 * @return array<int, string> $locations
+	 * @return array<string,mixed> $locations
 	 */
 	public function templateLocations( array $locations ): array
 	{
 		if ( empty( $this->template_locations ) ) {
-			$this->template_locations = array_map( [$this, 'filterTemplateLocations'], $locations );
+			$this->template_locations = array_map( [ $this, 'filterTemplateLocations' ], $locations );
 
-			$this->views_dir = apply_filters( 
+			$this->views_dir = apply_filters(
 				"{$this->package}_views_directory",
 				$this->views_dir
 			);
 
 			$package_template_directories = [
-					trailingslashit( get_stylesheet_directory() . '/' . $this->views_dir ),
-					trailingslashit( get_template_directory() . '/' . $this->views_dir ),
-					trailingslashit( $this->dir() ),
+				trailingslashit( get_stylesheet_directory() . '/' . $this->views_dir ),
+				trailingslashit( get_template_directory() . '/' . $this->views_dir ),
+				trailingslashit( $this->dir() ),
 			];
-			
+
 			$package_template_directories = apply_filters(
 				"{$this->package}_views_directories",
 				$package_template_directories
 			);
 
-			$this->template_locations[ $this->package ] = array_unique( array_filter( 
-				$package_template_directories, 
-				function( $dir ) {
-					return is_dir( $dir );
-				} 
-			) );
+			$this->template_locations[ $this->package ] = array_unique(
+				array_filter(
+					$package_template_directories,
+					function ( $dir ) {
+						return is_dir( $dir );
+					}
+				)
+			);
 		}
 
 		return $this->template_locations;
@@ -138,25 +144,23 @@ class Compiler extends Abstracts\Mountable implements Interfaces\Services\Compil
 	/**
 	 * Recursive function to remove library locations from twig search
 	 *
-	 * @param string|array $location
+	 * @param string|array<string> $location : array of template locations for twig to search in.
 	 *
-	 * @return boolean|array|string
+	 * @return boolean|array<string>|string
 	 */
-	protected function filterTemplateLocations( string|array $location ) : bool|array|string
+	protected function filterTemplateLocations( string|array $location ): bool|array|string
 	{
 		if ( is_array( $location ) ) {
 			$filtered_locations = array_filter(
 				$location,
-				function( $template_location ) {
+				function ( $template_location ) {
 					return $this->filterTemplateLocations( $template_location );
 				}
 			);
 			return $filtered_locations;
-		}
-		elseif ( is_string( $location ) ) {
+		} elseif ( is_string( $location ) ) {
 			return str_contains( $location, __DIR__ ) ? false : $location;
 		}
-		return $location;
 	}
 	/**
 	 * Compile a twig/html template file using Timber
@@ -350,21 +354,5 @@ class Compiler extends Abstracts\Mountable implements Interfaces\Services\Compil
 			'callback' => $callback,
 			'args'     => $args,
 		];
-	}
-	/**
-	 * Use twig to check if a given template exists in the defined paths
-	 *
-	 * @param string $name : which template to search for.
-	 *
-	 * @return boolean
-	 */
-	public function templateExists( string $name ): bool
-	{
-		if ( is_null( $this->twig ) ) {
-			$loader = new Loader();
-
-			$this->twig = $loader->get_twig();
-		}
-		return $this->twig->getLoader()->exists( $name );
 	}
 }

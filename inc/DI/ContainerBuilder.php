@@ -21,6 +21,8 @@ use Mwf\Lib\Helpers,
 	Mwf\Lib\Deps\DI\Definition\Reference,
 	Mwf\Lib\Deps\DI\Definition\Helper;
 
+use Psr\Container\ContainerInterface;
+
 /**
  * Builder for Service Containers
  *
@@ -34,7 +36,7 @@ class ContainerBuilder extends Deps\DI\ContainerBuilder
 	 * Used to cache containers, so services can be retrieved without
 	 * singletons
 	 *
-	 * @var array<string, Container>
+	 * @var array<string, ContainerInterface>
 	 */
 	protected static array $containers = [];
 	/**
@@ -51,21 +53,21 @@ class ContainerBuilder extends Deps\DI\ContainerBuilder
 	 *
 	 * @param string $container_id : name of cached container to retrieve.
 	 *
-	 * @return Container|null
+	 * @return ContainerInterface|null
 	 */
-	public static function locateContainer( string $container_id )
+	public static function locateContainer( string $container_id ): ContainerInterface|null
 	{
 		return isset( self::$containers[ $container_id ] ) ? self::$containers[ $container_id ] : null;
 	}
 	/**
 	 * Save a service container to the cache
 	 *
-	 * @param string    $container_id : name of container to reference it by.
-	 * @param Container $container : Container instance to cache.
+	 * @param string             $container_id : name of container to reference it by.
+	 * @param ContainerInterface $container : Container instance to cache.
 	 *
 	 * @return void
 	 */
-	public static function cacheContainer( string $container_id, Container $container ): void
+	public static function cacheContainer( string $container_id, ContainerInterface $container ): void
 	{
 		self::$containers[ $container_id ] = $container;
 	}
@@ -94,22 +96,23 @@ class ContainerBuilder extends Deps\DI\ContainerBuilder
 	/**
 	 * Auto wire controllers
 	 *
-	 * @param string|array|DefinitionSource|Helper\DefinitionHelper $definition : definition(s)
-	 * @param string                                                $key : optional key, used in recursion
+	 * @param string|array<string, mixed>|DefinitionSource|Helper\DefinitionHelper $definition : definition(s).
+	 * @param string                                                               $key : optional key, used in recursion.
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
-	protected function autowireControllers( string|array|DefinitionSource|Helper\DefinitionHelper $definition, string $key = '' ): array
-	{
+	protected function autowireControllers(
+		string|array|DefinitionSource|Helper\DefinitionHelper $definition,
+		string $key = ''
+	): array {
 		$extended_definitions = [];
 
 		if ( is_array( $definition ) ) {
 			foreach ( $definition as $key => $definitions ) {
 				$extended_definitions += $this->autowireControllers( $definitions, $key );
 			}
-		}
-		elseif ( 
-			is_object( $definition ) 
+		} elseif (
+			is_object( $definition )
 			&& is_subclass_of( $definition, Helper\DefinitionHelper::class )
 			&& ! empty( $key )
 		) {
@@ -120,7 +123,7 @@ class ContainerBuilder extends Deps\DI\ContainerBuilder
 				&& method_exists( $definition_object, 'getClassName' )
 			) {
 				$class_name = $definition_object->getClassName();
-				
+
 				if ( Helpers::implements( $class_name, Interfaces\Controller::class ) ) {
 					$extended_definitions = $class_name::getServiceDefinitions();
 				}
@@ -165,27 +168,27 @@ class ContainerBuilder extends Deps\DI\ContainerBuilder
 	/**
 	 * Helper for defining a container entry using a factory function/callable.
 	 *
-	 * @param callable|array<mixed>|string $factory The factory is a callable that takes the container as parameter
-	 *        and returns the value to register in the container.
+	 * @param callable|array<mixed>|string $factory : The factory is a callable that takes the container as parameter
+	 *                                                and returns the value to register in the container.
 	 */
 	public static function factory( callable|array|string $factory ): Helper\DefinitionHelper
 	{
 		return Deps\DI\factory( $factory );
 	}
 	/**
-     * Decorate the previous definition using a callable.
-     *
-     * Example:
-     *
-     *     'foo' => decorate(function ($foo, $container) {
-     *         return new CachedFoo($foo, $container->get('cache'));
-     *     })
-     *
-     * @param callable $callable The callable takes the decorated object as first parameter and
-     *                           the container as second.
-     */
-    public static function decorate( callable|array|string $decorator ) : Helper\DefinitionHelper
-    {
+	 * Decorate the previous definition using a callable.
+	 *
+	 * Example:
+	 *
+	 *     'foo' => decorate(function ($foo, $container) {
+	 *         return new CachedFoo($foo, $container->get('cache'));
+	 *     })
+	 *
+	 * @param callable|array<mixed>|string $decorator : The callable takes the decorated object as first parameter and
+	 *                                                  the container as second.
+	 */
+	public static function decorate( callable|array|string $decorator ): Helper\DefinitionHelper
+	{
 		return Deps\DI\decorate( $decorator );
-    }
+	}
 }

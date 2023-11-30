@@ -27,6 +27,7 @@ class Admin extends Abstracts\Mountable implements Interfaces\Uses\ScriptDispatc
 {
 	use Traits\Uses\ScriptDispatcher;
 	use Traits\Uses\StyleDispatcher;
+
 	/**
 	 * Load actions and filters, and other setup requirements
 	 *

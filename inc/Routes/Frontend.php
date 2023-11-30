@@ -27,6 +27,7 @@ class Frontend extends Abstracts\Mountable implements Interfaces\Uses\ScriptDisp
 {
 	use Traits\Uses\ScriptDispatcher;
 	use Traits\Uses\StyleDispatcher;
+
 	/**
 	 * Load actions and filters, and other setup requirements
 	 *

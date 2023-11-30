@@ -26,10 +26,10 @@ interface Compiler
 	 * Filters the default locations array for twig to search for templates. We never use some paths, so there's
 	 * no reason to waste overhead looking for templates there.
 	 *
-	 * @param array<int, string> $locations : Array of absolute paths to
+	 * @param array<string,mixed> $locations : Array of absolute paths to
 	 *                                        available templates.
 	 *
-	 * @return array<int, string> $locations
+	 * @return array<string,mixed> $locations
 	 */
 	public function templateLocations( array $locations ): array;
 	/**
@@ -49,17 +49,17 @@ interface Compiler
 	 */
 	public function loadFilters( Environment $twig ): Environment;
 		/**
-	 * Add a function to collection of twig functions
-	 *
-	 * @param string                   $name : name of function to bind.
-	 * @param string|array<int, mixed> $callback : callback function.
-	 * @param array<string, mixed>     $args : args to add to twig function.
-	 *
-	 * @see https://twig.symfony.com/doc/3.x/advanced.html
-	 * @see https://timber.github.io/docs/guides/extending-timber/
-	 *
-	 * @return void
-	 */
+		 * Add a function to collection of twig functions
+		 *
+		 * @param string                   $name : name of function to bind.
+		 * @param string|array<int, mixed> $callback : callback function.
+		 * @param array<string, mixed>     $args : args to add to twig function.
+		 *
+		 * @see https://twig.symfony.com/doc/3.x/advanced.html
+		 * @see https://timber.github.io/docs/guides/extending-timber/
+		 *
+		 * @return void
+		 */
 	public function addFunction( string $name, string|array $callback, array $args = [] ): void;
 	/**
 	 * Add a filter to collection of twig functions

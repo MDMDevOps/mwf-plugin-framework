@@ -1,6 +1,6 @@
 <?php
 /**
- * Directory Handler definition
+ * Script User definition
  *
  * PHP Version 8.0.28
  *
@@ -14,27 +14,27 @@
 namespace Mwf\Lib\Traits\Uses;
 
 use Mwf\Lib\Deps\DI\Attribute\Inject,
-    Mwf\Lib\Interfaces;
+	Mwf\Lib\Interfaces;
 
 /**
- * Directory Handler Trait
+ * Script Trait
  *
- * Allows classes that use this trait to work with directory helpers
+ * Used by classes to import the script dispatcher
  *
  * @subpackage Traits
  */
 trait ScriptDispatcher
 {
-    /**
+	/**
 	 * Script handler instance
 	 *
 	 * @var Interfaces\Dispatchers\Scripts|null
 	 */
 	protected ?Interfaces\Dispatchers\Scripts $script_dispatcher;
-    /**
-	 * Setter for the script handler
+	/**
+	 * Setter for the script dispatcher
 	 *
-	 * @param Interfaces\Dispatchers\Scripts $script_handler : instance of script dispatcher.
+	 * @param Interfaces\Dispatchers\Scripts $script_dispatcher : instance of script dispatcher.
 	 *
 	 * @return void
 	 */
@@ -44,7 +44,7 @@ trait ScriptDispatcher
 		$this->script_dispatcher = $script_dispatcher;
 	}
 	/**
-	 * Getter for the script handler
+	 * Getter for the script dispatcher
 	 *
 	 * @return Interfaces\Dispatchers\Scripts|null
 	 */
@@ -52,7 +52,7 @@ trait ScriptDispatcher
 	{
 		return $this->script_dispatcher;
 	}
-    /**
+	/**
 	 * Register a JS file with WordPress
 	 *
 	 * @param string             $handle : handle to register.
@@ -61,7 +61,7 @@ trait ScriptDispatcher
 	 * @param string             $version : version of JS file, optional.
 	 * @param boolean            $in_footer : whether to enqueue in footer, optional.
 	 *
-	 * @return string
+	 * @return void
 	 */
 	public function enqueueScript(
 		string $handle,
