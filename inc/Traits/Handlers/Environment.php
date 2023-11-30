@@ -62,21 +62,4 @@ trait Environment
 		}
 		return 'env' === $this->env;
 	}
-	/**
-	 * Check if a particular plugin is active and present in the environment
-	 *
-	 * @param string $plugin : dir/name.php of the plugin to check.
-	 *
-	 * @return bool
-	 */
-	public function isPluginActive( string $plugin ): bool
-	{
-		if ( ! defined( 'ABSPATH' ) || ! defined( 'WP_PLUGIN_DIR' ) ) {
-			return false;
-		}
-
-		include_once ABSPATH . 'wp-admin/includes/plugin.php';
-
-		return is_file( WP_PLUGIN_DIR . '/' . $plugin ) && is_plugin_active( $plugin );
-	}
 }
